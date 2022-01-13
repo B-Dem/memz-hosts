@@ -1,0 +1,107 @@
+{
+  "fan": {
+    "smallButtons": true,
+    "items": [
+      { "name": "Fan 50℃", "action": "setFan", "actionParams": { "data": 50 } },
+      { "name": "Fan 55℃", "action": "setFan", "actionParams": { "data": 55 } },
+      { "name": "Fan 60℃", "action": "setFan", "actionParams": { "data": 60 } },
+      { "name": "Fan 65℃", "action": "setFan", "actionParams": { "data": 65 } },
+      { "name": "Fan 70℃", "action": "setFan", "actionParams": { "data": 70 } },
+      { "name": "Fan 75℃", "action": "setFan", "actionParams": { "data": 75 } },
+      { "name": "Fan 80℃", "action": "setFan", "actionParams": { "data": 80 } }
+    ]
+  },
+  "main": {
+    "items": [
+      {
+        "name": "FTP",
+        "payload": "ftp.bin",
+        "desc": "A full access FTP server for the PS4"
+      },
+      {
+        "name": "App2USB",
+        "payload": "app2usb.bin",
+        "desc": "Move installed games to an external USB drive"
+      },
+      {
+        "name": "Dump Game",
+        "payload": "app-dumper.bin",
+        "desc": "Dump Games to a USB drive to be able to create fpkg files"
+      },
+      {
+        "name": "Web Activator",
+        "action": "loadUrl",
+        "actionParams": "/webact.html"
+      }
+    ]
+  },
+  "utils": {
+    "items": [
+      { "name": "DB Backup", "payload": "backupdb.bin" },
+      { "name": "DB Restore", "payload": "restoredb.bin" },
+      { "name": "Rif renamer", "payload": "rifrenamer.bin" },
+      { "name": "History Blocker", "payload": "historyblocker.bin" },
+      {
+        "name": "ToDex",
+        "payload": "ToDex.bin",
+        "desc": "Unlocks some debug features available on testkit"
+      },
+      { "name": "Exit IDU", "payload": "exitidu.bin" }
+    ]
+  },
+  "switches": {
+    "items": [
+      {
+        "name": "Enable Update",
+        "payload": "enbaleupdates.bin",
+        "desc": "Enables System Updates"
+      },
+      {
+        "name": "Disable Updates",
+        "payload": "disableupdates.bin",
+        "desc": "Disable System Updates"
+      },
+      { "name": "Disable ASLR", "payload": "disableaslr.bin" },
+      { "name": "Enable Browser", "payload": "enbalebrowser.bin" }
+    ]
+  },
+  "debug": {
+    "items": [
+      { "name": "WebRTE", "payload": "WebRTE.bin" },
+      { "name": "Ps4debug", "payload": "ps4debug.bin" },
+      { "name": "Orbis Toolbox", "payload": "Orbis-Toolbox-900.bin" },
+      { "name": "Kernel Dumper", "payload": "kerneldumper.bin" },
+      { "name": "Module Dumper", "payload": "mdumper.bin" },
+      { "name": "Permanent UART", "payload": "permanentuart.bin" }
+    ]
+  },
+  "linux": {
+    "items": [
+      {
+        "name": "Linux 1GB",
+        "action": "loadLinux",
+        "actionParams": { "data": 1 }
+      },
+      {
+        "name": "Linux 2GB",
+        "action": "loadLinux",
+        "actionParams": { "data": 2 }
+      },
+      {
+        "name": "Linux 3GB",
+        "action": "loadLinux",
+        "actionParams": { "data": 3 }
+      },
+      {
+        "name": "Linux 4GB",
+        "action": "loadLinux",
+        "actionParams": { "data": 4 }
+      },
+      {
+        "name": "Linux 5GB",
+        "action": "loadLinux",
+        "actionParams": { "data": 5 }
+      }
+    ]
+  }
+}
