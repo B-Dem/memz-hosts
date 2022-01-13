@@ -206,7 +206,7 @@ section .xhost__button__menu {
   height: 6px;
   background-color: var(--color-primary);
   border-radius: 3px;
-  -webkit-animation: 6s linear 0s xhost__autoload-anim;
+  -webkit-animation: 8s linear 0s xhost__autoload-anim;
 }
 
 @-webkit-keyframes xhost__autoload-anim {

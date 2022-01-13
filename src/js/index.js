@@ -1,6 +1,7 @@
 const $hostMain = $(".xhost__main");
 const $hostAutoloadProgress = $(".xhost__payload-autoload");
 const $hostIntro = $(".xhost__intro");
+const autoloadTime = 8000;
 
 let activeMenuIdx = 1;
 let activeSubmenuIndex = 0;
@@ -229,7 +230,7 @@ const setupAutoload = () => {
     clearTimeout(payloadTimeout);
     $hostAutoloadProgress.setAttribute("hidden", "");
     gotoKernelExploit();
-  }, 6000);
+  }, autoloadTime);
 };
 
 const main = () => {
