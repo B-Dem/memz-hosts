@@ -56,11 +56,6 @@ const xhostMouseUp = () => {
 
   const targetEl = menu[menuKeys[activeMenuIdx]].items[activeSubmenuIndex];
 
-  // if (+new Date() - lastMouseDown > 1500) {
-  //   notify("LONG " + targetEl.name);
-  //   return;
-  // }
-
   if (targetEl.action) {
     notify(`Running Payload: ${targetEl.name}`);
     setTimeout(() => {
@@ -92,7 +87,6 @@ document.addEventListener("keydown", (e) => {
       case 37: // left
         initialMenuActiveMenuIdx -= 1;
         if (initialMenuActiveMenuIdx < 0) {
-          // initialMenuActiveMenuIdx = menu[menuKeys[activeMenuIdx]].items.length - 1;
           initialMenuActiveMenuIdx = 0;
         }
         $hostAutoloadProgress.setAttribute("hidden", "");
@@ -115,7 +109,6 @@ document.addEventListener("keydown", (e) => {
     case 37: // left
       activeSubmenuIndex -= 1;
       if (activeSubmenuIndex < 0) {
-        // activeSubmenuIndex = menu[menuKeys[activeMenuIdx]].items.length - 1;
         activeSubmenuIndex = 0;
       }
       break;
