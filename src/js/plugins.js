@@ -18,6 +18,7 @@ const loadLinux = ({ data }) => {
 const loadUrl = (url) => {
   $("=iframe").setAttribute("src", url);
   $("=iframe").style.display = "block";
+  $("=iframe").focus();
 };
 
 const actions = { setFan, loadLinux, loadUrl };
