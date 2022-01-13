@@ -168,15 +168,15 @@ section .xhost__button__menu {
 }
 
 .xhost__button .xhost-payload__desc {
-  font-size: 18px;
+  font-size: 22px;
   overflow: hidden;
   position: relative;
   white-space: initial;
-  font-weight: 400;
+  font-weight: 300;
   height: 0;
   opacity: 0;
   transition: height 0.3s linear;
-  line-height: 17px !important;
+  line-height: 19px !important;
   padding-right: 8px;
   color: #111;
 }
