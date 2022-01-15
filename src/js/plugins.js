@@ -121,6 +121,7 @@ const action__loadLinux = ({ data }) => {
 
 const action__postBinaryPayload = (payloadUrl) => {
   // injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
+  alert(1);
   LoadviaGoldhen(`src/pl/${payloadUrl}`);
 };
 
