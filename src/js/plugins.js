@@ -21,10 +21,10 @@ var sendPayload = function (url, data, onLoadEndCallback) {
 function LoadviaGoldhen(PLfile) {
   var PS4IP = "127.0.0.1";
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", `http://${PS4IP}:9090/status`);
+  xhr.open("POST", `http://${PS4IP}:9090/status`, true);
   xhr.send();
   xhr.onerror = function (err) {
-    alert(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+    alert("Load Error , first Enable binloader server from Setting GoldHEN");
     return;
   };
   xhr.onload = function () {
