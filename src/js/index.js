@@ -58,7 +58,7 @@ const xhostMouseUp = () => {
   const targetEl = menu[menuKeys[activeMenuIdx]].items[activeSubmenuIndex];
 
   if (targetEl.action) {
-    notify(`Running Payload: ${targetEl.name} ${targetEl.action}`);
+    notify(`Running Payload: ${targetEl.name}`);
     setTimeout(() => {
       const { action, actionParams } = targetEl;
       actions["action__" + action].call(null, actionParams);
