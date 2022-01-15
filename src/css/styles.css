@@ -95,7 +95,7 @@ body {
 
 .xhost__button__payload {
   height: 96px;
-  min-width: 240px;
+  min-width: 306px;
 }
 
 .xhost__button__small {
@@ -108,7 +108,6 @@ body {
   display: flex;
   width: calc(100% - 280px);
   overflow: hidden;
-  padding: 0 20px;
 }
 
 .xhost__selectable-items .xhost__button:last-of-type {
@@ -119,7 +118,7 @@ body {
   overflow-x: hidden;
   position: absolute;
   bottom: 64px;
-  max-width: calc(100vw - 16px);
+  width: 100%;
   left: 64px;
 }
 
@@ -152,11 +151,8 @@ section .xhost__button__menu {
 
 .xhost__logo-button {
   position: fixed;
-  left: 64px;
-  top: 56px;
-  width: 240px;
-  border: 3px solid rgba(var(--color-secondary-rgba), 1) !important;
-  background-color: rgba(var(--color-secondary-rgba), 1) !important;
+  right: 64px;
+  top: 64px;
 }
 
 .xhost__logo {
@@ -244,8 +240,12 @@ section .xhost__button__menu {
 
 @media screen and (min-width: 1541px) {
   .xhost__notification {
-    top: 132px;
+    top: 200px;
   }
+}
+
+.xhost__svg-loader {
+  -webkit-mix-blend-mode: multiply;
 }
 
 .xhost__notification.-error {
@@ -258,4 +258,11 @@ section .xhost__button__menu {
     opacity: 0;
     right: -100vw;
   }
+}
+
+.xhost__item-spacer {
+  width: 300px;
+  background-color: red;
+  height: 50px;
+  opacity: 0;
 }
