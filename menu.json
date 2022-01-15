@@ -54,11 +54,6 @@
         "action": "postBinaryPayload",
         "actionParams": "app-dumper.bin",
         "desc": "Dump Games to a USB drive to be able to create fpkg files"
-      },
-      {
-        "name": "Web Activator",
-        "action": "loadUrl",
-        "actionParams": "/webact.html"
       }
     ]
   },
