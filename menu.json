@@ -61,6 +61,11 @@
     "items": [
       {
         "action": "postBinaryPayload",
+        "name": "Orbis Toolbox",
+        "actionParams": "Orbis-Toolbox-900.bin"
+      },
+      {
+        "action": "postBinaryPayload",
         "name": "DB Backup",
         "actionParams": "backupdb.bin"
       },
@@ -132,11 +137,6 @@
       },
       {
         "action": "postBinaryPayload",
-        "name": "Orbis Toolbox",
-        "actionParams": "Orbis-Toolbox-900.bin"
-      },
-      {
-        "action": "postBinaryPayload",
         "name": "Kernel Dumper",
         "actionParams": "kerneldumper.bin"
       },
@@ -178,6 +178,18 @@
         "name": "Linux 5GB",
         "action": "loadLinux",
         "actionParams": { "data": 5 }
+      }
+    ]
+  },
+  "about": {
+    "items": [
+      {
+        "name": "xhost v1.0",
+        "desc": "xps3riments"
+      },
+      {
+        "name": "Thanks",
+        "desc": "Sleirsgoevy , Al Azif , ChendoChap , SiSTRo ,Specter ,Znullptr"
       }
     ]
   }
