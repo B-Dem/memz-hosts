@@ -35,7 +35,6 @@ function LoadviaGoldhen(PLfile) {
           //Sending bins via IP POST Method
           sendPayload(`http://${PS4IP}:9090`, xhr.response, function (xhr) {
             if (xhr.status === 200) {
-              progress.innerHTML = "Payload Loaded";
               alert("Payload Loaded");
             } else {
               alert("Can't send the payload");
@@ -121,7 +120,6 @@ const action__loadLinux = ({ data }) => {
 
 const action__postBinaryPayload = (payloadUrl) => {
   // injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
-  alert(1);
   LoadviaGoldhen(`src/pl/${payloadUrl}`);
 };
 
