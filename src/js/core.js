@@ -25,14 +25,14 @@ const $ = (selector, root = document) => {
   return nodes;
 };
 
-// const __oldAlert = alert;
-// window.alert = (text) => {
-//   document.body.style.opacity = "0";
-//   setTimeout(() => {
-//     __oldAlert(text);
-//     document.body.style.opacity = "1";
-//   }, 400);
-// };
+const __oldAlert = alert;
+window.alert = (text) => {
+  document.body.style.opacity = "0";
+  setTimeout(() => {
+    __oldAlert(text);
+    document.body.style.opacity = "1";
+  }, 400);
+};
 
 const notify = (text, level = 0, delay = 0) => {
   const notifyLevel = { 0: "", 1: " -error" };
