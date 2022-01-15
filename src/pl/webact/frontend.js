@@ -1,22 +1,13 @@
-const setRandomID = (idx) => {
-  let s = "";
-  for (var i = 0; i < 16; i++) {
-    s += "0123456789ABCDEF"[(Math.random() * 16) | 0];
-  }
-  //   ui[idx].id.value = s;
-  return false;
-};
-
-const mailbox = {
+var mailbox = {
   idx: 0,
   action: 0,
   account_id: [0, 0, 0, 0, 0, 0, 0, 0],
   account_name: "",
 };
 
-const base = 0x9111110000;
+var base = 0x9111110000;
 
-const call_native = () => {
+function call_native() {
   write_ptr_at(base + 0x10, mailbox.idx);
   write_ptr_at(base + 0x18, mailbox.action);
   write_mem(base + 0x20, mailbox.account_id);
@@ -33,7 +24,7 @@ const call_native = () => {
   ss = "";
   for (var i = 0; sb[i]; i++) ss += String.fromCharCode(sb[i]);
   mailbox.account_name = decodeURIComponent(escape(ss));
-};
+}
 
 function makeUI() {
   var root = document.createElement("div");
@@ -106,6 +97,14 @@ function makeUI() {
 }
 
 var ui = makeUI();
+
+function setRandomID(idx) {
+  var s = "";
+  for (var i = 0; i < 16; i++)
+    s += "0123456789ABCDEF"[(Math.random() * 16) | 0];
+  ui[idx].id.value = s;
+  return false;
+}
 
 function fetchAccount(i) {
   mailbox.idx = i;
@@ -188,11 +187,3 @@ for (var i = 0; i < 16; i++) {
   ui[i].username_btn.onclick = setRandomID.bind(window, i);
   ui[i].button.onclick = activateAccount.bind(window, i);
 }
-
-const render = () => {
-  let output = "<div>";
-  for (let i = 0; i < 16; i++) {
-    output += `<div><input type="text" readonly id="user${i}-name"/><input type="text" readonly id="user${i}-id"/><input type="text" readonly id="user${i}-id-b64"/><button>Reload</button><button>Activate</button>`;
-  }
-  output += "</div>";
-};

@@ -58,18 +58,10 @@ const xhostMouseUp = () => {
   const targetEl = menu[menuKeys[activeMenuIdx]].items[activeSubmenuIndex];
 
   if (targetEl.action) {
-    notify(`Running Payload: ${targetEl.name}`);
+    notify(`Running Payload: ${targetEl.name} ${targetEl.action}`);
     setTimeout(() => {
       const { action, actionParams } = targetEl;
-      notify(`${action} ${JSON.stringify(actionParams)}`);
-      actions[action].call(null, actionParams);
-    }, 2000);
-    return;
-  }
-  if (targetEl.payload) {
-    notify(`Running Payload: ${targetEl.name}`);
-    setTimeout(() => {
-      injectPayload(`src/pl/${targetEl.file}`);
+      actions["action__" + action].call(null, actionParams);
     }, 5000);
     return;
   }
@@ -211,8 +203,11 @@ const renderMenu = () => {
 };
 
 const gotoKernelExploit = () => {
-  $("=iframe").setAttribute("src", "kernel.html");
-  $("=iframe").style.display = "block";
+  if (!sessionStorage.getItem("kernel-loaded")) {
+    window.location.href = "kernel.html";
+  } else {
+    notify("GoldHen Already Loaded");
+  }
 };
 
 const setupResize = () => {
@@ -226,11 +221,17 @@ const setupResize = () => {
 };
 
 const setupAutoload = () => {
-  payloadTimeout = setTimeout(() => {
-    clearTimeout(payloadTimeout);
+  if (!sessionStorage.getItem("kernel-loaded")) {
+    payloadTimeout = setTimeout(() => {
+      clearTimeout(payloadTimeout);
+      $hostAutoloadProgress.setAttribute("hidden", "");
+      gotoKernelExploit();
+    }, autoloadTime);
+  } else {
+    initialMenuActiveMenuIdx = 1;
+    renderIntroMenu();
     $hostAutoloadProgress.setAttribute("hidden", "");
-    gotoKernelExploit();
-  }, autoloadTime);
+  }
 };
 
 const main = () => {
@@ -247,7 +248,7 @@ loadMenu().then(() => {
 
   getBinaryLoaderStatus()
     .then(() => {
-      if (getBinaryLoaderStatus) {
+      if (binaryLoaderStatus) {
         $hostAutoloadProgress.setAttribute("hidden", "");
         initialMenuActiveMenuIdx = 1;
         main();

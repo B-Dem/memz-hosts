@@ -1,82 +1,45 @@
 <html>
-  <head>
-    <title>XHOST Web Activator</title>
-    <meta charset="UTF-8" />
-    <link href="src/css/styles.css" rel="stylesheet" />
-  </head>
   <body>
-    <input type="text" id="output" style="opacity: 0" />
-    <div class="xhost__intro">
-      <div active class="xhost__intro-logo" style="text-align: center">
-        <div
-          style="
-            color: #00c0fb;
-            font-size: 28px;
-            font-weight: 200;
-            padding-bottom: 8px;
-          "
-        >
-          Web Activator
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 346 69"
-          class="xhost__logo"
-          width="200"
-        >
-          <path
-            fill="#00c0fb"
-            d="M78.3 59.6a8.536 8.536 0 0 1-8.5 8.5 9.36 9.36 0 0 1-5.9-2.4L42.8 48.1a5.922 5.922 0 0 0-3.8-1.5 5.839 5.839 0 0 0-3.5 1.5L14.4 65.7a9.153 9.153 0 0 1-5.9 2.4 8.16 8.16 0 0 1-6-2.5 8.16 8.16 0 0 1-2.5-6 8 8 0 0 1 3.1-6.5L63.8 2.5A9.153 9.153 0 0 1 69.7.1a8.16 8.16 0 0 1 6 2.5 8.16 8.16 0 0 1 2.5 6 8 8 0 0 1-3.1 6.5L55.3 31.7a2.996 2.996 0 0 0-1 2.4 2.719 2.719 0 0 0 1 2.4l19.8 16.6a8.095 8.095 0 0 1 3.2 6.5ZM27.4 17.3a7.79 7.79 0 0 1-2.5 5.9 7.571 7.571 0 0 1-2.7 2 9.151 9.151 0 0 1-3.3.4 8.797 8.797 0 0 1-5.9-2.5L3.2 15A8.135 8.135 0 0 1 .1 8.5a8.16 8.16 0 0 1 2.5-6 8.16 8.16 0 0 1 6-2.5 9.36 9.36 0 0 1 5.9 2.4L25 11.2a7.625 7.625 0 0 1 2.4 6.1ZM88.2 67.1v-66a.897.897 0 0 1 1-1H93a.897.897 0 0 1 1 1v38.5h46.3V1.1a.897.897 0 0 1 1-1h3.7a.897.897 0 0 1 1 1v66a.897.897 0 0 1-1 1h-3.7a.897.897 0 0 1-1-1V45.4H94v21.7a.897.897 0 0 1-1 1h-3.8c-.7 0-1-.3-1-1ZM172.6 65.9a26.97 26.97 0 0 1-8.8-6 29.852 29.852 0 0 1-6-8.8 26.42 26.42 0 0 1-2.2-10.8V27.9a25.626 25.626 0 0 1 2.2-10.7 28.068 28.068 0 0 1 6-8.8 29.852 29.852 0 0 1 8.8-6A25.955 25.955 0 0 1 183.3.2h18.1a26.42 26.42 0 0 1 10.8 2.2 27.996 27.996 0 0 1 14.7 14.8 25.626 25.626 0 0 1 2.2 10.7v12.5a26.42 26.42 0 0 1-2.2 10.8A27.996 27.996 0 0 1 212.2 66a26.42 26.42 0 0 1-10.8 2.2h-18.1a28.154 28.154 0 0 1-10.7-2.3Zm28.6-3.5a21.859 21.859 0 0 0 15.8-6.5 23.405 23.405 0 0 0 4.8-7.1 20.967 20.967 0 0 0 1.7-8.6v-12a22.736 22.736 0 0 0-1.7-8.6 22.581 22.581 0 0 0-11.9-11.9 21.112 21.112 0 0 0-8.7-1.7h-17.6a22.737 22.737 0 0 0-8.6 1.7 21.733 21.733 0 0 0-7.1 4.8 23.405 23.405 0 0 0-4.8 7.1 20.966 20.966 0 0 0-1.7 8.6v12a22.736 22.736 0 0 0 1.7 8.6 21.734 21.734 0 0 0 4.8 7.1 23.405 23.405 0 0 0 7.1 4.8 20.967 20.967 0 0 0 8.6 1.7ZM282.8 27.3a27.023 27.023 0 0 1 6.1 3.1 22.11 22.11 0 0 1 6.8 7.8 21.39 21.39 0 0 1 2.4 10v3.7a15.136 15.136 0 0 1-1.3 6.3 17 17 0 0 1-3.5 5.2 17.822 17.822 0 0 1-5.1 3.5 15.27 15.27 0 0 1-6.4 1.3h-41.1a.897.897 0 0 1-1-1v-3.8a.897.897 0 0 1 1-1h38.4a12.742 12.742 0 0 0 5.2-1.1 14.17 14.17 0 0 0 7.1-7.1 12.546 12.546 0 0 0 1-5.1v-1a16.437 16.437 0 0 0-4.7-11.4 15.72 15.72 0 0 0-5.1-3.4 16.896 16.896 0 0 0-6.3-1.3h-29.6a9.9 9.9 0 0 1-4.2-.9 11.577 11.577 0 0 1-5.9-5.9 9.9 9.9 0 0 1-.9-4.2v-9.9a9.9 9.9 0 0 1 .9-4.2 12.111 12.111 0 0 1 2.4-3.5 12.111 12.111 0 0 1 3.5-2.4 9.9 9.9 0 0 1 4.2-.9h98.1a.897.897 0 0 1 1 1v3.8a.897.897 0 0 1-1 1h-28.1v61.2a.897.897 0 0 1-1 1H312a.897.897 0 0 1-1-1V5.9h-61.6a7.698 7.698 0 0 0-5.6 2.3 7.395 7.395 0 0 0-2.3 5.7v4.5a7.764 7.764 0 0 0 2.3 5.7 7.865 7.865 0 0 0 5.6 2.3H276a18.102 18.102 0 0 1 6.8.9Z"
-          />
-        </svg>
-
-        <div
-          class="xhost__web-activator__user-slots"
-          style="
-            display: inline-flex;
-            width: calc(100vw - 64px);
-            left: 32px;
-            overflow: hidden;
-          "
-        ></div>
-        <div
-          style="
-            color: #00c0fb;
-            font-size: 16px;
-            font-weight: 200;
-            padding-top: 16px;
-            text-align: right;
-          "
-        >
-          <div>Short Press to Randomize User ID</div>
-          <div>Long Press to Activate User Account</div>
-        </div>
-      </div>
+    <h2>Loading...</h2>
+    <!-- preload necessary fonts before exploit -->
+    <div style="opacity: 0">
+      <p><i>Italic text</i></p>
+      <table>
+        <tr>
+          <th>H1</th>
+          <th>H2</th>
+          <th>H3</th>
+        </tr>
+        <tr>
+          <td>text</td>
+          <td><input value="text" /></td>
+          <td><button>text</button></td>
+        </tr>
+      </table>
     </div>
-    <div class="xhost__notification-container"></div>
-    <script src="src/js/core.js"></script>
-    <script src="src/js/webact.js"></script>
-    <style>
-      .xhost__intro {
-        display: flex;
-        justify-content: center;
+    <script>
+      function loadScript(path) {
+        var xhr = new XMLHttpRequest(path);
+        xhr.open("GET", path, false);
+        xhr.send("");
+        return xhr.responseText;
       }
 
-      .xhost__button {
-        height: 300px;
-        min-width: 320px;
-        overflow: visible;
-      }
-
-      .xhost__web-activator__id {
-        font-size: 20px;
-        font-weight: 200;
-        display: none;
-        letter-spacing: 0;
-      }
-      .xhost__button[active] .xhost__web-activator__id {
-        display: block;
-      }
-    </style>
+      setTimeout(function () {
+        eval.call(
+          window,
+          loadScript("src/pl/webact/netcat.js") +
+            loadScript("src/pl/webact/exploit.js") +
+            loadScript("src/pl/webact/malloc.js") +
+            loadScript("src/pl/webact/ropb2.js") +
+            loadScript("src/pl/webact/syscalls.js") +
+            loadScript("src/pl/webact/syscalls2.js") +
+            loadScript("src/pl/webact/payload.js") +
+            loadScript("src/pl/webact/relocator.js") +
+            loadScript("src/pl/webact/frontend.js")
+        );
+        document.getElementById("q").innerHTML = "Some other text";
+      }, 50);
+    </script>
   </body>
 </html>

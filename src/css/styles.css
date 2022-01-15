@@ -259,14 +259,3 @@ section .xhost__button__menu {
     right: -100vw;
   }
 }
-
-iframe {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  border: 0px;
-  display: none;
-  background-color: black;
-}

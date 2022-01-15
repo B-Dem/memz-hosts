@@ -1,7 +1,11 @@
 <html>
   <head>
-    <title>XHOST</title>
-    <meta charset="UTF-8" />
+    <script>
+      if (sessionStorage.getItem("kernel-loaded")) {
+        window.location.href = "index.html";
+      }
+    </script>
+    <title>XHOST 9.00 + GoldHEN</title>
     <style>
       html,
       body {
@@ -62,13 +66,14 @@
         }
       }
     </style>
+    <script src="src/kernel/payload.js"></script>
     <script src="src/kernel/int64.js"></script>
     <script src="src/kernel/rop.js"></script>
     <script src="src/kernel/kexploit.js"></script>
     <script src="src/kernel/webkit.js"></script>
   </head>
-  <body>
-    <!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+
+  <body onload="setTimeout(poc, 5000);">
     <svg
       width="168"
       height="168"
@@ -126,6 +131,16 @@
     </svg>
     <div class="xhost__notification-container"></div>
     <script>
+      if (sessionStorage.getItem("kernel-loaded")) {
+        window.location.href = "index.html";
+      }
+      function allset() {
+        notify("All done");
+      }
+
+      function awaitpl() {
+        notify("Awaiting Payload");
+      }
       const notify = (text, delay = 0) => {
         setTimeout(() => {
           document.querySelector(
@@ -139,26 +154,6 @@
         }, delay + 5000);
       };
       notify("Awaiting Kernel Exploit");
-
-      const loadPoc = () => {
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = "arraybuffer";
-        xhr.open("GET", "/src/pl/goldhen2b2.bin", true);
-        xhr.send();
-        xhr.onreadystatechange = () => {
-          if (xhr.readyState == 4) {
-            PLS = xhr.response;
-            setTimeout(poc, 1500);
-          }
-        };
-      };
-
-      const allset = () => {
-        //window.location.href = "index.html";
-      };
-      setTimeout(() => {
-        loadPoc();
-      }, 3000);
     </script>
   </body>
 </html>
