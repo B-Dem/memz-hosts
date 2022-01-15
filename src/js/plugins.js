@@ -24,7 +24,7 @@ function LoadviaGoldhen(PLfile) {
   xhr.open("POST", `http://${PS4IP}:9090/status`);
   xhr.send();
   xhr.onerror = function (err) {
-    alert(JSON.stringify(err));
+    alert(JSON.stringify(err, ["message", "arguments", "type", "name"]));
     return;
   };
   xhr.onload = function () {
