@@ -45,29 +45,56 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
       notify("Cannot Load Payload Because binloader Server Is Busy", 1);
     })
     .catch((error) => {
-      notify("Enable binloader server in GoldHEN settings", 1);
+      $(".iframe").contentWindow.action__postBinaryPayload(
+        PLfile,
+        responseTranformer
+      );
     });
 };
 
 const action__setFan = ({ data }) => {
-  injectBinaryPayloadPOST(`src/pl/fan.bin`, function (arrayBuffer) {
+  const transformer = (arrayBuffer) => {
     const arr = new Uint8Array(arrayBuffer);
     arr[0x1d28] = data;
     return arr.buffer;
-  });
+  };
+  if (navigator.onLine) {
+    injectBinaryPayloadPOST(`src/pl/fan.bin`, transformer);
+    return;
+  }
+
+  $(".iframe").contentWindow.action__postBinaryPayload(
+    `src/pl/fan.bin`,
+    transformer
+  );
 };
 
 const action__loadLinux = ({ data }) => {
-  injectBinaryPayloadPOST(`src/pl/linux-loader.bin`, function (arrayBuffer) {
+  const transformer = (arrayBuffer) => {
     const arr = new Uint8Array(arrayBuffer);
     arr[0x409e] = data;
     arr[0x40b6] = data;
     return arr.buffer;
-  });
+  };
+
+  if (navigator.onLine) {
+    injectBinaryPayloadPOST(`src/pl/linux-loader.bin`, transformer);
+    return;
+  }
+
+  $(".iframe").contentWindow.action__postBinaryPayload(
+    `src/pl/linux-loader.bin`,
+    transformer
+  );
 };
 
 const action__postBinaryPayload = (payloadUrl) => {
-  injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
+  if (navigator.onLine) {
+    injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
+    return;
+  }
+
+  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/${payloadUrl}`);
 };
 
 const action__loadUrl = (url) => {

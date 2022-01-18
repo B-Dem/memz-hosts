@@ -1,18 +1,13 @@
 const $hostMain = $(".xhost__main");
-const $hostAutoloadProgress = $(".xhost__payload-autoload");
 const $hostIntro = $(".xhost__intro");
-const autoloadTime = 8000;
 
 let activeMenuIdx = 1;
 let activeSubmenuIndex = 0;
 let initialMenu = true;
 let initialMenuActiveMenuIdx = 0;
-let lastMouseDown = 0;
-let lastWindowWidth = window.innerWidth;
 let menu;
 let menuKeys;
 let menuLength;
-let payloadTimeout;
 let rows;
 
 const loadMenu = () => {
@@ -34,10 +29,6 @@ const xhostMouseUp = () => {
   if (initialMenu) {
     switch (initialMenuActiveMenuIdx) {
       case 0:
-        if (binaryLoaderStatus) {
-          notify("GoldHEN already loaded", 1);
-          return;
-        }
         gotoKernelExploit();
         break;
       case 1:
@@ -59,20 +50,17 @@ const xhostMouseUp = () => {
 
   if (targetEl.action) {
     notify(`Running Payload: ${targetEl.name}`);
+
     setTimeout(() => {
       const { action, actionParams } = targetEl;
       actions["action__" + action].call(null, actionParams);
-    }, 5000);
+    }, 250);
+
     return;
   }
 };
 
 document.addEventListener("mouseup", xhostMouseUp);
-
-document.addEventListener("mousedown", () => {
-  lastMouseDown = +new Date();
-});
-
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
   if (initialMenu) {
@@ -82,16 +70,12 @@ document.addEventListener("keydown", (e) => {
         if (initialMenuActiveMenuIdx < 0) {
           initialMenuActiveMenuIdx = 0;
         }
-        $hostAutoloadProgress.setAttribute("hidden", "");
-        clearTimeout(payloadTimeout);
         break;
       case 39: // right
         initialMenuActiveMenuIdx += 1;
         if (initialMenuActiveMenuIdx >= getIntroSelectables().length) {
           initialMenuActiveMenuIdx = getIntroSelectables().length - 1;
         }
-        $hostAutoloadProgress.setAttribute("hidden", "");
-        clearTimeout(payloadTimeout);
         break;
     }
     renderIntroMenu();
@@ -127,7 +111,6 @@ document.addEventListener("keydown", (e) => {
       break;
   }
   renderMenu();
-  e.preventDefault();
 });
 
 const generateMenu = () => {
@@ -151,27 +134,6 @@ const generateMenu = () => {
   $(".section-container").innerHTML =
     $(".section-container").innerHTML + outputHTML;
   rows = $(`?[row]`);
-};
-
-const fullScreenChange = () => {
-  if (window.innerWidth === 1920) {
-    $hostMain.style.opacity = 0;
-    $hostIntro.setAttribute("hidden", "");
-    $hostMain.removeAttribute("hidden");
-    setTimeout(() => {
-      $hostMain.style.opacity = 1;
-    }, 1000);
-  } else {
-    $hostIntro.style.opacity = 0;
-    $hostMain.setAttribute("hidden", "");
-    $hostIntro.removeAttribute("hidden");
-    initialMenuActiveMenuIdx = binaryLoaderStatus ? 1 : 0;
-    initialMenu = true;
-    renderIntroMenu();
-    setTimeout(() => {
-      $hostIntro.style.opacity = 1;
-    }, 1000);
-  }
 };
 
 const renderIntroMenu = () => {
@@ -203,62 +165,14 @@ const renderMenu = () => {
 };
 
 const gotoKernelExploit = () => {
-  if (!sessionStorage.getItem("kernel-loaded")) {
-    window.location.href = "kernel.html";
-  } else {
-    notify("GoldHen Already Loaded");
-  }
-};
-
-const setupResize = () => {
-  setInterval(() => {
-    if (lastWindowWidth === window.innerWidth) {
-      return;
-    }
-    lastWindowWidth = window.innerWidth;
-    fullScreenChange();
-  }, 1000);
-};
-
-const setupAutoload = () => {
-  if (!sessionStorage.getItem("kernel-loaded")) {
-    payloadTimeout = setTimeout(() => {
-      clearTimeout(payloadTimeout);
-      $hostAutoloadProgress.setAttribute("hidden", "");
-      gotoKernelExploit();
-    }, autoloadTime);
-  } else {
-    initialMenuActiveMenuIdx = 1;
-    renderIntroMenu();
-    $hostAutoloadProgress.setAttribute("hidden", "");
-  }
-};
-
-const main = () => {
-  generateMenu();
-  setupResize();
-  renderMenu();
-  renderIntroMenu();
-  fullScreenChange();
+  notify("Loading GoldHen2b2...");
+  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/goldhen2b2.bin`);
 };
 
 loadMenu().then(() => {
   menuKeys = Object.keys(menu);
   menuLength = menuKeys.length;
-
-  getBinaryLoaderStatus()
-    .then(() => {
-      if (binaryLoaderStatus) {
-        $hostAutoloadProgress.setAttribute("hidden", "");
-        initialMenuActiveMenuIdx = 1;
-        main();
-        return;
-      }
-      main();
-      setupAutoload();
-    })
-    .catch(() => {
-      main();
-      setupAutoload();
-    });
+  generateMenu();
+  renderMenu();
+  renderIntroMenu();
 });

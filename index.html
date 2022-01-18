@@ -1,10 +1,11 @@
-<html>
+<html manifest="cache.manifest">
   <head>
     <title>XHOST 9.00 + GoldHEN</title>
     <meta charset="UTF-8" />
     <link href="src/css/styles.css" rel="stylesheet" />
   </head>
   <body>
+    <iframe src="kernel.html" class="iframe"></iframe>
     <svg
       height="400vh"
       viewBox="0 0 44 44"
@@ -128,13 +129,14 @@
           <button
             class="xhost__button xhost__button__payload xhost__intro-select"
             active
+            style="height: 96px"
           >
             <div>GoldHEN 2b2</div>
             <div class="xhost-payload__desc">Run Kexplot + GoldHEN fw9.00</div>
-            <div class="xhost__payload-autoload"></div>
           </button>
           <button
             class="xhost__button xhost__button__payload xhost__intro-select"
+            style="height: 96px"
           >
             <div>PAYLOADS</div>
             <div class="xhost-payload__desc">Enter Main Payload Menu</div>
@@ -165,7 +167,11 @@
       <div id="app" class="section-container"></div>
     </div>
     <div class="xhost__notification-container"></div>
-
+    <div class="xhost__cache">
+      <div class="xhost__cache-title">CACHING</div>
+      <div class="xhost__payload-autoload"></div>
+      <div class="xhost__payload-autoload xhost__payload-autoload-bar"></div>
+    </div>
     <script src="src/js/core.js"></script>
     <script src="src/js/plugins.js"></script>
     <script src="src/js/index.js"></script>

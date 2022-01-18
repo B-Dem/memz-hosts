@@ -25,15 +25,6 @@ const $ = (selector, root = document) => {
   return nodes;
 };
 
-const __oldAlert = alert;
-window.alert = (text) => {
-  document.body.style.opacity = "0";
-  setTimeout(() => {
-    __oldAlert(text);
-    document.body.style.opacity = "1";
-  }, 400);
-};
-
 const notify = (text, level = 0, delay = 0) => {
   const notifyLevel = { 0: "", 1: " -error" };
   setTimeout(() => {
@@ -46,3 +37,37 @@ const notify = (text, level = 0, delay = 0) => {
     $("?.xhost__notification-container").innerHTML = "";
   }, delay + 5000);
 };
+
+if (window.applicationCache) {
+  window.applicationCache.addEventListener(
+    "updateready",
+    (e) => {
+      if (
+        window.applicationCache.status == window.applicationCache.UPDATEREADY
+      ) {
+        notify("New version CACHED.<br/>RELOADING", 1);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+    },
+    false
+  );
+
+  window.applicationCache.ondownloading = () => {
+    $(".xhost__cache").style.display = "block";
+    notify("CACHING STARTED", 1);
+  };
+
+  window.applicationCache.onprogress = (a) => {
+    let w = Math.round(100 * (a.loaded / a.total));
+    if (w > 100 || isNaN(w)) {
+      w = 100;
+    }
+    $(".xhost__payload-autoload-bar").style.width = w + "%";
+  };
+
+  window.applicationCache.oncached = () => {
+    $(".xhost__cache").style.display = "none";
+  };
+}
