@@ -45,10 +45,13 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
       notify("Cannot Load Payload Because binloader Server Is Busy", 1);
     })
     .catch((error) => {
-      $(".iframe").contentWindow.action__postBinaryPayload(
-        PLfile,
-        responseTranformer
-      );
+      $(".iframe").src += "";
+      setTimeout(() => {
+        $(".iframe").contentWindow.action__postBinaryPayload(
+          PLfile,
+          responseTranformer
+        );
+      }, 1000);
     });
 };
 
@@ -63,10 +66,13 @@ const action__setFan = ({ data }) => {
     return;
   }
 
-  $(".iframe").contentWindow.action__postBinaryPayload(
-    `src/pl/fan.bin`,
-    transformer
-  );
+  $(".iframe").src += "";
+  setTimeout(() => {
+    $(".iframe").contentWindow.action__postBinaryPayload(
+      `src/pl/fan.bin`,
+      transformer
+    );
+  });
 };
 
 const action__loadLinux = ({ data }) => {
@@ -82,10 +88,13 @@ const action__loadLinux = ({ data }) => {
     return;
   }
 
-  $(".iframe").contentWindow.action__postBinaryPayload(
-    `src/pl/linux-loader.bin`,
-    transformer
-  );
+  $(".iframe").src += "";
+  setTimeout(() => {
+    $(".iframe").contentWindow.action__postBinaryPayload(
+      `src/pl/linux-loader.bin`,
+      transformer
+    );
+  });
 };
 
 const action__postBinaryPayload = (payloadUrl) => {
@@ -93,8 +102,12 @@ const action__postBinaryPayload = (payloadUrl) => {
     injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
     return;
   }
-
-  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/${payloadUrl}`);
+  $(".iframe").src += "";
+  setTimeout(() => {
+    $(".iframe").contentWindow.action__postBinaryPayload(
+      `src/pl/${payloadUrl}`
+    );
+  });
 };
 
 const action__loadUrl = (url) => {
