@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cache": "appcache-manifest \"./**/**/*.{html,css,js,bin,json}\" -o cache.manifest --network-star"
+    "cache": "appcache-manifest \"**/**/*.{html,css,js,bin,json}\" -o cache.manifest --network-star -p /xhost"
   },
   "repository": {
     "type": "git",
