@@ -45,7 +45,7 @@ if (window.applicationCache) {
       if (
         window.applicationCache.status == window.applicationCache.UPDATEREADY
       ) {
-        notify("New version CACHED.<br/>RELOADING", 1);
+        notify("CACHE UPDATED<br/>RELOADING", 1);
         setTimeout(() => {
           window.location.reload();
         }, 3000);
