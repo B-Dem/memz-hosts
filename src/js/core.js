@@ -69,5 +69,6 @@ if (window.applicationCache) {
 
   window.applicationCache.oncached = () => {
     $(".xhost__cache").style.display = "none";
+    notify("CACHING COMPLETED", 1);
   };
 }
