@@ -166,7 +166,12 @@ const renderMenu = () => {
 
 const gotoKernelExploit = () => {
   notify("Loading GoldHen2b2...");
-  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/goldhen2b2.bin`);
+  $(".iframe").src = "kernel.html";
+  setTimeout(() => {
+    $(".iframe").contentWindow.action__postBinaryPayload(
+      `src/pl/goldhen2b2.bin`
+    );
+  }, 1000);
 };
 
 loadMenu().then(() => {
