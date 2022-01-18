@@ -45,7 +45,7 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
       notify("Cannot Load Payload Because binloader Server Is Busy", 1);
     })
     .catch((error) => {
-      $(".iframe").src += "";
+      $(".iframe").src = "kernel.html";
       setTimeout(() => {
         $(".iframe").contentWindow.action__postBinaryPayload(
           PLfile,
@@ -66,7 +66,7 @@ const action__setFan = ({ data }) => {
     return;
   }
 
-  $(".iframe").src += "";
+  $(".iframe").src = "kernel.html";
   setTimeout(() => {
     $(".iframe").contentWindow.action__postBinaryPayload(
       `src/pl/fan.bin`,
@@ -88,7 +88,7 @@ const action__loadLinux = ({ data }) => {
     return;
   }
 
-  $(".iframe").src += "";
+  $(".iframe").src = "kernel.html";
   setTimeout(() => {
     $(".iframe").contentWindow.action__postBinaryPayload(
       `src/pl/linux-loader.bin`,
@@ -102,7 +102,7 @@ const action__postBinaryPayload = (payloadUrl) => {
     injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
     return;
   }
-  $(".iframe").src += "";
+  $(".iframe").src = "kernel.html";
   setTimeout(() => {
     $(".iframe").contentWindow.action__postBinaryPayload(
       `src/pl/${payloadUrl}`
