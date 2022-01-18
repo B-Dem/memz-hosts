@@ -7,15 +7,10 @@ CACHE MANIFEST
 /xhost/src/js/core.js
 /xhost/src/js/index.js
 /xhost/src/js/plugins.js
-/xhost/src/kernel-mem/int64.js
-/xhost/src/kernel-mem/kexploit.js
-/xhost/src/kernel-mem/rop.js
-/xhost/src/kernel-mem/webkit.js
-/xhost/src/kernel/int64.js
-/xhost/src/kernel/kexploit.js
-/xhost/src/kernel/payload.js
-/xhost/src/kernel/rop.js
-/xhost/src/kernel/webkit.js
+/xhost/src/kernel-poobs4/int64.js
+/xhost/src/kernel-poobs4/kexploit.js
+/xhost/src/kernel-poobs4/rop.js
+/xhost/src/kernel-poobs4/webkit.js
 /xhost/src/pl/BeefQueefMod.bin
 /xhost/src/pl/BeefQueefMod134.bin
 /xhost/src/pl/BeefQueefMod138.bin
@@ -54,6 +49,6 @@ CACHE MANIFEST
 /xhost/src/pl/ps4debug.bin
 /xhost/src/pl/restoredb.bin
 /xhost/src/pl/rifrenamer.bin
-#b906bbc66d0bceb43e6ecc2dd78e48c2
+#d93e7478135a7552649c19cc995eadf2
 NETWORK:
 *

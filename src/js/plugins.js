@@ -55,6 +55,19 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
     });
 };
 
+const action__setTheme = (themeColors) => {
+  const root = document.documentElement;
+
+  root.style.setProperty("--color-black", themeColors[0]);
+  root.style.setProperty("--color-cod-gray", themeColors[1]);
+  root.style.setProperty("--color-primary-rgba", themeColors[2]);
+  root.style.setProperty("--color-primary", themeColors[3]);
+  root.style.setProperty("--color-secondary-rgba", themeColors[4]);
+  root.style.setProperty("--color-secondary", themeColors[5]);
+  root.style.setProperty("--color-white", themeColors[6]);
+  root.style.setProperty("--color-error", themeColors[7]);
+};
+
 const action__setFan = ({ data }) => {
   const transformer = (arrayBuffer) => {
     const arr = new Uint8Array(arrayBuffer);
@@ -119,4 +132,5 @@ const actions = {
   action__loadLinux,
   action__loadUrl,
   action__postBinaryPayload,
+  action__setTheme,
 };

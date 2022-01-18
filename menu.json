@@ -275,8 +275,7 @@
       }
     ]
   },
-
-  "about": {
+  "xhost": {
     "items": [
       {
         "name": "xhost v1.0",

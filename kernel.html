@@ -1,29 +1,23 @@
 <html manifest="cache.manifest">
   <head>
-    <script src="src/kernel-mem/int64.js"></script>
-    <script src="src/kernel-mem/rop.js"></script>
-    <script src="src/kernel-mem/kexploit.js"></script>
-    <script src="src/kernel-mem/webkit.js"></script>
+    <script src="src/kernel-poobs4/int64.js"></script>
+    <script src="src/kernel-poobs4/rop.js"></script>
+    <script src="src/kernel-poobs4/kexploit.js"></script>
+    <script src="src/kernel-poobs4/webkit.js"></script>
     <script>
       const action__postBinaryPayload = (file, responseTranformer) => {
-        if (file.includes("goldhen2b2.bin")) {
-          out_jb = "GoldPL";
-        } else {
-          out_jb = "AllPL";
-        }
-        fetch(file)
-          .then((response) => response.arrayBuffer())
-          .then((buffer) => {
-            if (responseTranformer) {
-              buffer = responseTranformer(buffer);
-            }
-            PLS = buffer;
+        exec_type = "payload";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", file, true);
+        xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        xhr.onload = (e) => {
+          if (xhr.status == 200) {
+            payloadData = xhr.response;
             setTimeout(poc, 1500);
-          });
+          }
+        };
+        xhr.send();
       };
-      function allSet() {
-        alert("Payload Loaded. Click OK after error memory");
-      }
       window.action__postBinaryPayload = action__postBinaryPayload;
     </script>
   </head>
