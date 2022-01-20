@@ -182,94 +182,95 @@
     ]
   },
   "mods": {
+    "hideOffline": true,
     "items": [
       {
         "name": "GTAV A100",
-        "actionParams": "gtava0.bin",
+        "actionParams": "mods/gtava0.bin",
         "desc": "GTAV ArabicGuy 1.00 by Karo for 900 L1+R1 ",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV A127",
-        "actionParams": "gtava1.bin",
+        "actionParams": "mods/gtava1.bin",
         "desc": "GTAV ArabicGuy 1.27 by rfoodxmodz fixed by Karo for 900 ==> + []",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV A132",
-        "actionParams": "gtava2.bin",
+        "actionParams": "mods/gtava2.bin",
         "desc": "GTAV ArabicGuy 1.32 by rfoodxmodz fixed by Karo for 900",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV A133",
-        "actionParams": "gtava3.bin",
+        "actionParams": "mods/gtava3.bin",
         "desc": "GTAV ArabicGuy 1.33 by rfoodxmodz for 900",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV BQ133",
-        "actionParams": "BeefQueefMod.bin",
+        "actionParams": "mods/BeefQueefMod.bin",
         "desc": "GTAV BeefQueefMod 1.33 by GraFfix_221211 for 900",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV BQ134",
-        "actionParams": "BeefQueefMod134.bin",
+        "actionParams": "mods/BeefQueefMod134.bin",
         "desc": "GTAV BeefQueefMod 1.34 by GraFfix_221211 for 900 ",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV BQ138",
-        "actionParams": "BeefQueefMod138.bin",
+        "actionParams": "mods/BeefQueefMod138.bin",
         "desc": "GTAV BeefQueefMod 1.38 by GraFfix_221211 for 900",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV MB127",
-        "actionParams": "gtavmb127.bin",
+        "actionParams": "mods/gtavmb127.bin",
         "desc": "GTAV Menu-Base 1.27 Ported by Karo for 900 ==> + []",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV LTS127",
-        "actionParams": "gtava3.bin",
+        "actionParams": "mods/gtava3.bin",
         "desc": "GTAV LTS 1.27 Ported by Karo for 900 ==> + []",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV Ex135",
-        "actionParams": "LushModz-1.0-9.00.bin",
+        "actionParams": "mods/LushModz-1.0-9.00.bin",
         "desc": "GTAV Expulsion Mode Menu 1.35 by LushModz for 900 ",
         "action": "postBinaryPayload"
       },
       {
         "name": "GTAV W138",
-        "actionParams": "WildeModz-1.38.bin",
+        "actionParams": "mods/WildeModz-1.38.bin",
         "desc": "GTAV Expulsion Mode Menu 1.38 v1.2 by x_WildeModz_x for 900 ",
         "action": "postBinaryPayload"
       },
       {
         "name": "RDR2 V1.00",
-        "actionParams": "Oysters1.00.bin",
+        "actionParams": "mods/Oysters1.00.bin",
         "desc": "Red dead redemption 2 mod  menu 1.13 V1.3.4 by RF0oDxM0Dz (R1 + Square)",
         "action": "postBinaryPayload"
       },
       {
         "name": "RDR2 V1.13",
-        "actionParams": "Oysters1.13.bin",
+        "actionParams": "mods/Oysters1.13.bin",
         "desc": "Red dead redemption 2 mod  menu 1.13 V1.3.4 by RF0oDxM0Dz (R1 + Square)",
         "action": "postBinaryPayload"
       },
       {
         "name": "RDR2 V1.19",
-        "actionParams": "Oysters1.19.bin",
+        "actionParams": "mods/Oysters1.19.bin",
         "desc": "Red dead redemption 2 mod  menu 1.19 V1.3.4 by RF0oDxM0Dz (R1 + Square)",
         "action": "postBinaryPayload"
       },
       {
         "name": "RDR2 V1.24",
-        "actionParams": "Oysters1.24.bin",
+        "actionParams": "mods/Oysters1.24.bin",
         "desc": "Red dead redemption 2 mod  menu 1.24 V1.3.4 by RF0oDxM0Dz (R1 + Square)",
         "action": "postBinaryPayload"
       }

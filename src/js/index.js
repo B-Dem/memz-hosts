@@ -117,22 +117,29 @@ document.addEventListener("keydown", (e) => {
 });
 
 const generateMenu = () => {
-  const outputHTML = Object.keys(menu).reduce((acc, key, idx) => {
-    const items = menu[key].items
-      .map((item) => {
-        return `<button class="xhost__button xhost__button__payload ${
-          menu[key].smallButtons ? "xhost__button__small" : ""
-        }"><div>${item.name}</div><div class="xhost-payload__desc">${
-          item.desc ? item.desc : ""
-        }</div></button>`;
-      })
-      .join("");
-    return `${acc}<section row="${idx}" ${
-      idx === activeMenuIdx ? "" : "disabled"
-    } class="${
-      idx === activeMenuIdx ? "active" : ""
-    }"><button active class="xhost__button xhost__button__menu xhost__button__secondary xhost__button__payload"><div>${key}</div></button><div class="xhost__selectable-items">${items}</div></section>`;
-  }, "");
+  const outputHTML = Object.keys(menu)
+    .filter((key) => {
+      if (SHOW_OFFLINE_ITEMS) {
+        return true;
+      }
+      return menu[key].hideOffline !== true;
+    })
+    .reduce((acc, key, idx) => {
+      const items = menu[key].items
+        .map((item) => {
+          return `<button class="xhost__button xhost__button__payload ${
+            menu[key].smallButtons ? "xhost__button__small" : ""
+          }"><div>${item.name}</div><div class="xhost-payload__desc">${
+            item.desc ? item.desc : ""
+          }</div></button>`;
+        })
+        .join("");
+      return `${acc}<section row="${idx}" ${
+        idx === activeMenuIdx ? "" : "disabled"
+      } class="${
+        idx === activeMenuIdx ? "active" : ""
+      }"><button active class="xhost__button xhost__button__menu xhost__button__secondary xhost__button__payload"><div>${key}</div></button><div class="xhost__selectable-items">${items}</div></section>`;
+    }, "");
 
   $(".section-container").innerHTML =
     $(".section-container").innerHTML + outputHTML;
