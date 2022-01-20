@@ -41,6 +41,9 @@ const xhostMouseUp = () => {
           $hostMain.style.opacity = 1;
         }, 1000);
         break;
+      case 2:
+        window.location.href = "index-cached.html";
+        break;
     }
 
     return;
@@ -166,12 +169,7 @@ const renderMenu = () => {
 
 const gotoKernelExploit = () => {
   notify("Loading GoldHen2b2...");
-  $(".iframe").src = "kernel.html";
-  setTimeout(() => {
-    $(".iframe").contentWindow.action__postBinaryPayload(
-      `src/pl/goldhen2b2.bin`
-    );
-  }, 1000);
+  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/goldhen2b2.bin`);
 };
 
 loadMenu().then(() => {

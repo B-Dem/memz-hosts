@@ -1,5 +1,7 @@
 CACHE MANIFEST
+/xhost/index-cached.html
 /xhost/index.html
+/xhost/kernel-cached.html
 /xhost/kernel.html
 /xhost/menu.json
 /xhost/package.json
@@ -49,6 +51,6 @@ CACHE MANIFEST
 /xhost/src/pl/ps4debug.bin
 /xhost/src/pl/restoredb.bin
 /xhost/src/pl/rifrenamer.bin
-#8782ab613874191d66694ae58b23d1e3
+#c441798bb4b07882e4508ec561d34317
 NETWORK:
 *
