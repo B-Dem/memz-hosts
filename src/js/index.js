@@ -126,6 +126,12 @@ const generateMenu = () => {
     })
     .reduce((acc, key, idx) => {
       const items = menu[key].items
+        .filter((item) => {
+          if (SHOW_OFFLINE_ITEMS) {
+            return true;
+          }
+          return item.hideOffline !== true;
+        })
         .map((item) => {
           return `<button class="xhost__button xhost__button__payload ${
             menu[key].smallButtons ? "xhost__button__small" : ""

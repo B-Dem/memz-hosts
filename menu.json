@@ -41,7 +41,8 @@
         "name": "FTP",
         "action": "postBinaryPayload",
         "actionParams": "ftp.bin",
-        "desc": "A full access FTP server for the PS4"
+        "desc": "A full access FTP server for the PS4",
+        "hideOffline": true
       },
       {
         "name": "App2USB",
@@ -128,7 +129,8 @@
       {
         "action": "postBinaryPayload",
         "name": "WebRTE",
-        "actionParams": "WebRTE.bin"
+        "actionParams": "WebRTE.bin",
+        "hideOffline": true
       },
       {
         "action": "postBinaryPayload",
