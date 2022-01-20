@@ -16,6 +16,7 @@ CACHE MANIFEST
 /xhost/src/pl/MiraLoader.bin
 /xhost/src/pl/Orbis-Toolbox-900.bin
 /xhost/src/pl/ToDex.bin
+/xhost/src/pl/WebRTE.bin
 /xhost/src/pl/app-dumper.bin
 /xhost/src/pl/app2usb.bin
 /xhost/src/pl/backupdb.bin
@@ -34,6 +35,6 @@ CACHE MANIFEST
 /xhost/src/pl/ps4debug.bin
 /xhost/src/pl/restoredb.bin
 /xhost/src/pl/rifrenamer.bin
-#c0884651d45ebc8eec437e97f41f29ae
+#aeb29b323b05d1b886eedba8aa33743c
 NETWORK:
 *

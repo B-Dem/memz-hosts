@@ -129,8 +129,7 @@
       {
         "action": "postBinaryPayload",
         "name": "WebRTE",
-        "actionParams": "WebRTE.bin",
-        "hideOffline": true
+        "actionParams": "WebRTE.bin"
       },
       {
         "action": "postBinaryPayload",
