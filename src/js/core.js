@@ -48,7 +48,7 @@ if (window.applicationCache) {
         notify("CACHE UPDATED<br/>RELOADING", 1);
         setTimeout(() => {
           window.location.reload();
-        }, 3001);
+        }, 3000);
       }
     },
     false

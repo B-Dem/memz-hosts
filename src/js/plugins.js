@@ -52,6 +52,10 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
     });
 };
 
+const action__loadUrl = (url) => {
+  window.location.href = url;
+};
+
 const action__setTheme = (themeColors) => {
   const root = document.documentElement;
 
@@ -72,12 +76,12 @@ const action__setFan = ({ data }) => {
     return arr.buffer;
   };
   if (navigator.onLine) {
-    injectBinaryPayloadPOST(`src/pl/fan.bin`, transformer);
+    injectBinaryPayloadPOST(`pl/fan.bin`, transformer);
     return;
   }
 
   $(".iframe").contentWindow.action__postBinaryPayload(
-    `src/pl/fan.bin`,
+    `pl/fan.bin`,
     transformer
   );
 };
@@ -91,31 +95,103 @@ const action__loadLinux = ({ data }) => {
   };
 
   if (navigator.onLine) {
-    injectBinaryPayloadPOST(`src/pl/linux-loader.bin`, transformer);
+    injectBinaryPayloadPOST(`pl/linux-loader.bin`, transformer);
     return;
   }
   $(".iframe").contentWindow.action__postBinaryPayload(
-    `src/pl/linux-loader.bin`,
+    `pl/linux-loader.bin`,
     transformer
   );
 };
 
 const action__postBinaryPayload = (payloadUrl) => {
   if (navigator.onLine) {
-    injectBinaryPayloadPOST(`src/pl/${payloadUrl}`);
+    injectBinaryPayloadPOST(`pl/${payloadUrl}`);
     return;
   }
-  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/${payloadUrl}`);
+  $(".iframe").contentWindow.action__postBinaryPayload(`pl/${payloadUrl}`);
 };
 
-const action__loadUrl = (url) => {
-  window.location.href = url;
+const action__showPayloads = () => {
+  const $hostMain = $(".xhost__main");
+
+  $hostMain.style.opacity = 0;
+  $hostMain.removeAttribute("hidden");
+  $hostMain.style.opacity = 1;
 };
+
+const action__contextMenu = (items) => {
+  contextMenuItems = [
+    {
+      name: "back",
+      action: "contextMenuClose",
+      class: "xhost__button__secondary",
+      silent: true,
+    },
+    ...items,
+  ];
+  showContextMenu = true;
+  generateContextMenu(contextMenuItems);
+  contextMenuActiveMenuIndex = 0;
+  renderContextMenu();
+  $(".xhost__context").style.display = "block";
+};
+
+const action__contextMenuClose = () => {
+  showContextMenu = false;
+
+  renderMainMenu();
+  $(".xhost__context").style.display = "none";
+};
+
+const action__loadBinaryLoader = () => {
+  $(".iframe").contentWindow.action__loadBinaryLoader();
+};
+
+const action__loadMiraJailbreak = () => {
+  $(".iframe").contentWindow.action__loadMiraJailbreak();
+};
+
+const action__loadMira = () => {
+  $(".iframe").contentWindow.action__loadMira();
+};
+
+const select__color = (option) => {
+  // alert(option.innerText + "," + option.value);
+};
+
+const select__usbDelay = (option) => {
+  // alert(option.innerText + " USB DELAY ," + option.value);
+};
+
+const action__selectParams = {};
+const action__select = () => {};
+
+const selects = {
+  select__color,
+  select__usbDelay,
+};
+
+$(".xhost__select").addEventListener("change", () => {
+  selects["select__" + action__selectParams.params.onchange](
+    $(".xhost__select").options[$(".xhost__select").selectedIndex]
+  );
+
+  selectStores[action__selectParams.params.store] =
+    $(".xhost__select").options[$(".xhost__select").selectedIndex].value;
+});
 
 const actions = {
-  action__setFan,
+  action__contextMenu,
+  action__contextMenuClose,
+  action__loadBinaryLoader,
   action__loadLinux,
+  action__loadMira,
+  action__loadMiraJailbreak,
   action__loadUrl,
   action__postBinaryPayload,
+  action__setFan,
   action__setTheme,
+  action__showPayloads,
+  action__select,
 };

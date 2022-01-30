@@ -1,194 +1,241 @@
-const $hostMain = $(".xhost__main");
-const $hostIntro = $(".xhost__intro");
+let mainMenu;
+let mainMenuKeys;
+let mainMenuLength;
+let mainMenuActiveIndex = 0;
+let mainSubmenuActiveIndex = 0;
+let mainMenuRows;
 
-let activeMenuIdx = 1;
-let activeSubmenuIndex = 0;
-let initialMenu = true;
-let initialMenuActiveMenuIdx = 0;
-let menu;
-let menuKeys;
-let menuLength;
-let rows;
+let showContextMenu = false;
+let contextMenuItems;
+let contextMenuActiveMenuIndex = 0;
 
-const loadMenu = () => {
-  return fetch("menu.json")
-    .then((r) => r.json())
-    .then((m) => {
-      menu = m;
-      return m;
-    });
-};
-
-const getIntroSelectables = () => {
-  return Array.from($("?.xhost__intro-select")).filter(
+const getContextSelectables = () => {
+  return Array.from($(".xhost__button__payload", $("?.xhost__context"))).filter(
     (el) => el.getAttribute("hidden") != ""
   );
 };
 
-const xhostMouseUp = () => {
-  if (initialMenu) {
-    switch (initialMenuActiveMenuIdx) {
-      case 0:
-        gotoKernelExploit();
-        break;
-      case 1:
-        initialMenu = false;
-        $hostMain.style.opacity = 0;
-        $hostIntro.setAttribute("hidden", "");
-        $hostMain.removeAttribute("hidden");
-        document.body.webkitRequestFullscreen();
-        setTimeout(() => {
-          $hostMain.style.opacity = 1;
-        }, 1000);
-        break;
-      case 2:
-        window.location.href = "index-cached.html";
-        break;
-    }
+let selectStores = {};
 
-    return;
+const xhostMouseUp = (e) => {
+  if (e) {
+    e.preventDefault();
+  }
+  let targetEl;
+  if (showContextMenu) {
+    targetEl = contextMenuItems[contextMenuActiveMenuIndex];
+  } else {
+    targetEl =
+      mainMenu[mainMenuKeys[mainMenuActiveIndex]].items[mainSubmenuActiveIndex];
   }
 
-  const targetEl = menu[menuKeys[activeMenuIdx]].items[activeSubmenuIndex];
-
   if (targetEl.action) {
-    notify(`Running Payload: ${targetEl.name}`);
+    if (!targetEl.silent) {
+      notify(`Running Payload: ${targetEl.name}`);
+    }
 
-    setTimeout(() => {
-      const { action, actionParams } = targetEl;
-      actions["action__" + action].call(null, actionParams);
-    }, 250);
+    const { action, actionParams } = targetEl;
+    actions["action__" + action].call(null, actionParams);
 
     return;
   }
 };
 
 document.addEventListener("mouseup", xhostMouseUp);
+
+window.addEventListener("keyup", (e) => {
+  if (e.key == "Enter") {
+    xhostMouseUp();
+  }
+});
+
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
-  if (initialMenu) {
+
+  if (showContextMenu) {
     switch (e.keyCode) {
-      case 37: // left
-        initialMenuActiveMenuIdx -= 1;
-        if (initialMenuActiveMenuIdx < 0) {
-          initialMenuActiveMenuIdx = 0;
+      case 38: // up
+        contextMenuActiveMenuIndex -= 1;
+        if (contextMenuActiveMenuIndex < 0) {
+          contextMenuActiveMenuIndex = 0;
         }
         break;
-      case 39: // right
-        initialMenuActiveMenuIdx += 1;
-        if (initialMenuActiveMenuIdx >= getIntroSelectables().length) {
-          initialMenuActiveMenuIdx = getIntroSelectables().length - 1;
+      case 40: // down
+        contextMenuActiveMenuIndex += 1;
+        if (contextMenuActiveMenuIndex >= getContextSelectables().length) {
+          contextMenuActiveMenuIndex = getContextSelectables().length - 1;
         }
         break;
     }
-    renderIntroMenu();
+
+    if (contextMenuItems[contextMenuActiveMenuIndex].action === "select") {
+      const tmpParams =
+        contextMenuItems[contextMenuActiveMenuIndex].actionParams;
+      action__selectParams.params = tmpParams;
+
+      $(".xhost__select").innerHTML = Object.keys(tmpParams.options).reduce(
+        (acc, key) => {
+          const selected =
+            selectStores[tmpParams.store] === tmpParams.options[key];
+          acc += `<option value="${tmpParams.options[key]}"${
+            selected ? " selected" : ""
+          }>${key}</option>`;
+          return acc;
+        },
+        ""
+      );
+
+      $(".xhost__select").style.display = "block";
+    } else {
+      $(".xhost__select").style.display = "none";
+    }
+
+    renderContextMenu();
     return;
   }
 
   switch (e.keyCode) {
     case 37: // left
-      activeSubmenuIndex -= 1;
-      if (activeSubmenuIndex < 0) {
-        activeSubmenuIndex = 0;
+      mainSubmenuActiveIndex -= 1;
+      if (mainSubmenuActiveIndex < 0) {
+        mainSubmenuActiveIndex = 0;
       }
       break;
     case 39: // right
-      activeSubmenuIndex += 1;
-      if (activeSubmenuIndex >= menu[menuKeys[activeMenuIdx]].items.length) {
-        activeSubmenuIndex = menu[menuKeys[activeMenuIdx]].items.length - 1;
+      mainSubmenuActiveIndex += 1;
+      if (
+        mainSubmenuActiveIndex >=
+        mainMenu[mainMenuKeys[mainMenuActiveIndex]].items.length
+      ) {
+        mainSubmenuActiveIndex =
+          mainMenu[mainMenuKeys[mainMenuActiveIndex]].items.length - 1;
       }
       break;
     case 38: // up
-      activeMenuIdx -= 1;
-      if (activeMenuIdx < 0) {
-        activeMenuIdx = rows.length - 1;
+      mainMenuActiveIndex -= 1;
+      if (mainMenuActiveIndex < 0) {
+        mainMenuActiveIndex = mainMenuRows.length - 1;
       }
-      activeSubmenuIndex = 0;
+      mainSubmenuActiveIndex = 0;
       break;
     case 40: // down
-      activeMenuIdx += 1;
-      if (activeMenuIdx > rows.length - 1) {
-        activeMenuIdx = 0;
+      mainMenuActiveIndex += 1;
+      if (mainMenuActiveIndex > mainMenuRows.length - 1) {
+        mainMenuActiveIndex = 0;
       }
-      activeSubmenuIndex = 0;
+      mainSubmenuActiveIndex = 0;
       break;
   }
-  renderMenu();
+  renderMainMenu();
 });
 
-const generateMenu = () => {
-  const outputHTML = Object.keys(menu)
-    .filter((key) => {
-      if (SHOW_OFFLINE_ITEMS) {
-        return true;
-      }
-      return menu[key].hideOffline !== true;
-    })
-    .reduce((acc, key, idx) => {
-      const items = menu[key].items
-        .filter((item) => {
-          if (SHOW_OFFLINE_ITEMS) {
-            return true;
-          }
-          return item.hideOffline !== true;
-        })
-        .map((item) => {
-          return `<button class="xhost__button xhost__button__payload ${
-            menu[key].smallButtons ? "xhost__button__small" : ""
-          }"><div>${item.name}</div><div class="xhost-payload__desc">${
-            item.desc ? item.desc : ""
-          }</div></button>`;
-        })
-        .join("");
-      return `${acc}<section row="${idx}" ${
-        idx === activeMenuIdx ? "" : "disabled"
-      } class="${
-        idx === activeMenuIdx ? "active" : ""
-      }"><button active class="xhost__button xhost__button__menu xhost__button__secondary xhost__button__payload"><div>${key}</div></button><div class="xhost__selectable-items">${items}</div></section>`;
-    }, "");
+const generateMainMenu = () => {
+  const container = $(".section-container");
+  const outputHTML = Object.keys(mainMenu).reduce((acc, key, idx) => {
+    const items = mainMenu[key].items
+      .map((item) => {
+        return `<button class="xhost__button xhost__button__payload ${
+          mainMenu[key].smallButtons ? "xhost__button__small" : ""
+        }"><div>${item.name}</div><div class="xhost-payload__desc">${
+          item.desc ? item.desc : ""
+        }</div></button>`;
+      })
+      .join("");
+    return `${acc}<section row="${idx}" ${
+      idx === mainMenuActiveIndex ? "" : "disabled"
+    } class="${
+      idx === mainMenuActiveIndex ? "active" : ""
+    }"><button active class="xhost__button xhost__button__menu xhost__button__secondary xhost__button__payload"><div>${key}</div></button><div class="xhost__selectable-items">${items}</div></section>`;
+  }, "");
 
-  $(".section-container").innerHTML =
-    $(".section-container").innerHTML + outputHTML;
-  rows = $(`?[row]`);
+  container.innerHTML = container.innerHTML + outputHTML;
+
+  mainMenuRows = $(`?[row]`);
 };
 
-const renderIntroMenu = () => {
-  getIntroSelectables().forEach((el) => {
+const generateContextMenu = (items) => {
+  const output =
+    "<ul>" +
+    items
+      .map((item) => {
+        return `<li><button class="xhost__button xhost__button__payload ${
+          item.class ? item.class : ""
+        }">
+  <div>${item.name}</div>
+  <div class="xhost-payload__desc">${item.desc || ""}</div>
+</button></li>`;
+      })
+      .join("") +
+    "</ul>";
+  $(".xhost__context").innerHTML = output;
+};
+
+const renderContextMenu = () => {
+  getContextSelectables().forEach((el) => {
     el.removeAttribute("active");
   });
-  getIntroSelectables()[initialMenuActiveMenuIdx].setAttribute("active", "");
-  getIntroSelectables()[initialMenuActiveMenuIdx].scrollIntoView();
+  getContextSelectables()[contextMenuActiveMenuIndex].setAttribute(
+    "active",
+    ""
+  );
+  getContextSelectables()[contextMenuActiveMenuIndex].scrollIntoView();
 };
 
-const renderMenu = () => {
-  rows.forEach((e) => {
+const renderMainMenu = () => {
+  mainMenuRows.forEach((e) => {
     e.setAttribute("disabled", "");
     e.classList.remove("active");
   });
-  const activeRow = $(`?[row="${activeMenuIdx}"]`);
+  const activeRow = $(`?[row="${mainMenuActiveIndex}"]`);
   activeRow.removeAttribute("disabled");
   activeRow.classList.add("active");
 
   $("?.xhost__selectable-items button").forEach((el) => {
     el.removeAttribute("active");
-  }, rows[activeMenuIdx]);
+  }, mainMenuRows[mainMenuActiveIndex]);
 
-  const target = $("?.xhost__selectable-items button", rows[activeMenuIdx])[
-    activeSubmenuIndex
-  ];
+  const selectables = $(
+    "?.xhost__selectable-items button",
+    mainMenuRows[mainMenuActiveIndex]
+  );
+  let target;
+  if (selectables.length) {
+    target = selectables[mainSubmenuActiveIndex];
+  } else {
+    target = selectables;
+  }
+
   target.setAttribute("active", "");
   target.scrollIntoView({ behavior: "smooth", block: "center" });
 };
 
-const gotoKernelExploit = () => {
-  notify("Loading GoldHen2b2...");
-  $(".iframe").contentWindow.action__postBinaryPayload(`src/pl/goldhen2b2.bin`);
+const removeHiddenMenus = (menu) => {
+  return Object.keys(menu).reduce((acc, key) => {
+    acc[key] = menu[key];
+
+    if (acc[key].items) {
+      acc[key].items = menu[key].items.filter((item) => {
+        if (SHOW_OFFLINE_ITEMS) {
+          return true;
+        }
+        return item.hideOffline !== true;
+      });
+    }
+    return acc;
+  }, {});
 };
 
-loadMenu().then(() => {
-  menuKeys = Object.keys(menu);
-  menuLength = menuKeys.length;
-  generateMenu();
-  renderMenu();
-  renderIntroMenu();
-});
+const xhostMain = () => {
+  return fetch("menu.json")
+    .then((r) => r.json())
+    .then((r) => removeHiddenMenus(r))
+    .then((menuJson) => {
+      mainMenu = menuJson;
+      mainMenuKeys = Object.keys(mainMenu);
+      mainMenuLength = mainMenuKeys.length;
+      action__showPayloads();
+      generateMainMenu();
+      renderMainMenu();
+      return menuJson;
+    });
+};

@@ -1,13 +1,42 @@
 <html manifest="cache.manifest">
   <head>
-    <script src="src/kernel-poobs4/int64.js"></script>
-    <script src="src/kernel-poobs4/rop.js"></script>
-    <script src="src/kernel-poobs4/kexploit.js"></script>
-    <script src="src/kernel-poobs4/webkit.js"></script>
+    <script src="kernel-poobs4/int64.js"></script>
+    <script src="kernel-poobs4/rop.js"></script>
+    <script src="kernel-poobs4/kexploit.js"></script>
+    <script src="kernel-poobs4/webkit.js"></script>
     <script>
+      const getPayloadPath = (file) => {
+        return (
+          location.href.substr(0, location.href.lastIndexOf("/") + 1) + file
+        );
+      };
+
+      const action__loadBinaryLoader = () => {
+        out_jb = "BinLD";
+        setTimeout(poc, 1500);
+      };
+
+      const action__loadMiraJailbreak = () => {
+        out_jb = "JB";
+        setTimeout(poc, 1500);
+      };
+
+      const action__loadMira = (file, responseTranformer) => {
+        out_jb = "MLD";
+        fetch(getPayloadPath(file))
+          .then((response) => response.arrayBuffer())
+          .then((buffer) => {
+            if (responseTranformer) {
+              buffer = responseTranformer(buffer);
+            }
+            PLS = buffer;
+            setTimeout(poc, 1500);
+          });
+      };
+
       const action__postBinaryPayload = (file, responseTranformer) => {
         out_jb = "AllPL";
-        fetch(file)
+        fetch(getPayloadPath(file))
           .then((response) => response.arrayBuffer())
           .then((buffer) => {
             if (responseTranformer) {
@@ -18,6 +47,7 @@
           });
       };
       window.action__postBinaryPayload = action__postBinaryPayload;
+
       function LoaderPL() {
         if (out_jb == "AllPL") {
           var payload_buffer = chain.syscall(
@@ -63,6 +93,8 @@
             0
           );
           Mset();
+        } else if (out_jb == "JB") {
+          allset();
         } else if (out_jb == "BinLD") {
           var payload_buffer = chain.syscall(
             477,
@@ -152,11 +184,10 @@
             );
           }
           chain.run();
+          Binset();
         }
       }
     </script>
   </head>
-  <body>
-    CACHED
-  </body>
+  <body></body>
 </html>

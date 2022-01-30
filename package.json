@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cache": "appcache-manifest \"**/**/*.{html,css,js,bin,json}\" -o cache.manifest --network-star -p /xhost"
+    "offuscate": "yasm gifjs.asm -o img.js",
+    "cache": "cd src && appcache-manifest \"**/**/*.{html,css,js,bin,json}\" \"!pl/mods/**/*.{html,css,js,bin,json}\" -o ../src/cache.manifest --network-star"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/xperiments/xhost/issues"
   },
-  "homepage": "https://github.com/xperiments/xhost#readme"
+  "homepage": "https://github.com/xperiments/xhost#readme",
+  "devDependencies": {
+    "clean-css": "^5.2.4",
+    "html-minifier-terser": "^7.0.0-alpha.1",
+    "jsonminify": "^0.4.2"
+  },
+  "dependencies": {
+    "google-closure-compiler": "^20220104.0.0"
+  }
 }
