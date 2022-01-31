@@ -283,6 +283,25 @@ async function compressRecursiveSync(src, dest) {
       );
     });
   } else {
+    if (src.includes("-cached.html")) {
+      minify(
+        fs
+          .readFileSync(src.replace("-cached", ""), "utf8")
+          .replace("<html>", '<html manifest="cache.manifest">')
+          .replace(
+            "      /* xhosh-inject-point */",
+            "SHOW_OFFLINE_ITEMS=false;"
+          )
+          .replace(/[\n\r]/g, ""),
+        getOptions(defaultOptions)
+      )
+        .then((c) => {
+          fs.writeFileSync(dest, c, "utf8");
+        })
+        .catch((e) => console.log);
+      return;
+    }
+
     if (src.includes(".html")) {
       console.log(src, dest);
       minify(fs.readFileSync(src, "utf8"), getOptions(defaultOptions))
@@ -292,10 +311,12 @@ async function compressRecursiveSync(src, dest) {
         .catch((e) => console.log);
       return;
     }
+
     if (src.includes(".json")) {
       fs.writeFileSync(dest, jsonminify(fs.readFileSync(src, "utf8")), "utf8");
       return;
     }
+
     if (src.includes(".css")) {
       fs.writeFileSync(
         dest,
@@ -304,6 +325,7 @@ async function compressRecursiveSync(src, dest) {
       );
       return;
     }
+
     if (src.includes(".manifest")) {
       fs.writeFileSync(
         dest,
@@ -316,6 +338,7 @@ async function compressRecursiveSync(src, dest) {
       );
       return;
     }
+
     if (src.includes(".js")) {
       const closureCompiler = new ClosureCompiler({
         js: src,
@@ -330,6 +353,7 @@ async function compressRecursiveSync(src, dest) {
       );
       return;
     }
+
     fs.copyFile(src, dest, NOOP);
   }
 }

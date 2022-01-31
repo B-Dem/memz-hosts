@@ -375,12 +375,47 @@
   "xhost": {
     "items": [
       {
-        "name": "Offline Cache<br/>Version",
-        "desc": "Cache this Host for offline access",
-        "action": "loadUrl",
-        "actionParams": "index-cached.html",
+        "name": "Settings",
+        "action": "contextMenu",
         "silent": true,
-        "hideOffline": true
+        "actionParams": [
+          {
+            "name": "Enable Offline Cache",
+            "desc": "Cache this Host for offline access",
+            "action": "loadUrl",
+            "actionParams": "index-cached.html",
+            "silent": true,
+            "hideOffline": true
+          },
+          {
+            "name": "Theme",
+            "silent": true,
+            "action": "select",
+            "actionParams": {
+              "options": {
+                "Original": "[\"black\",\"#101010\",\"white\",\"rgb(191,95,95)\",\"0,192,251\",\"#00c0fb\",\"234,182,56\",\"#eab638\"]",
+                "Gold": "[\"black\",\"#101010\",\"white\",\"rgb(191,95,95)\",\"234,182,56\",\"#eab638\",\"0,220,195\",\"#00dcc3\"]",
+                "Citron": "[\"black\",\"#101010\",\"white\",\"rgb(191, 95, 95)\",\"0, 176, 108\",\"#00b06c\",\"245, 227, 130\",\"#f5e382\"]",
+                "Lunar": "[\"black\",\"#101010\",\"white\",\"rgb(255,200,60)\",\"209,87,25\",\"#d15719\",\"0,151,123\",\"#00977b\"]"
+              },
+              "onchange": "theme",
+              "store": "theme"
+            }
+          },
+          {
+            "name": "Theme Background",
+            "silent": true,
+            "action": "select",
+            "actionParams": {
+              "options": {
+                "Original": "original",
+                "Parallax": "parallax"
+              },
+              "onchange": "themeSpeed",
+              "store": "themeSpeed"
+            }
+          }
+        ]
       },
       {
         "name": "Big<br>Thanks",

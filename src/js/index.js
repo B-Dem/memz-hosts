@@ -15,8 +15,6 @@ const getContextSelectables = () => {
   );
 };
 
-let selectStores = {};
-
 const xhostMouseUp = (e) => {
   if (e) {
     e.preventDefault();
@@ -29,14 +27,19 @@ const xhostMouseUp = (e) => {
       mainMenu[mainMenuKeys[mainMenuActiveIndex]].items[mainSubmenuActiveIndex];
   }
 
-  if (targetEl.action) {
-    if (!targetEl.silent) {
-      notify(`Running Payload: ${targetEl.name}`);
+  const action = targetEl.action;
+
+  if (action && action !== "contextMenu" && action !== "select") {
+    if ($(".iframe").contentWindow.checkNeedsReload()) {
+      return;
     }
 
     const { action, actionParams } = targetEl;
     actions["action__" + action].call(null, actionParams);
 
+    if (!targetEl.silent) {
+      notify(`Running Payload: ${targetEl.name}`);
+    }
     return;
   }
 };
@@ -68,6 +71,8 @@ document.addEventListener("keydown", (e) => {
         break;
     }
 
+    renderContextMenu();
+
     if (contextMenuItems[contextMenuActiveMenuIndex].action === "select") {
       const tmpParams =
         contextMenuItems[contextMenuActiveMenuIndex].actionParams;
@@ -77,7 +82,7 @@ document.addEventListener("keydown", (e) => {
         (acc, key) => {
           const selected =
             selectStores[tmpParams.store] === tmpParams.options[key];
-          acc += `<option value="${tmpParams.options[key]}"${
+          acc += `<option value='${tmpParams.options[key]}'${
             selected ? " selected" : ""
           }>${key}</option>`;
           return acc;
@@ -90,7 +95,6 @@ document.addEventListener("keydown", (e) => {
       $(".xhost__select").style.display = "none";
     }
 
-    renderContextMenu();
     return;
   }
 

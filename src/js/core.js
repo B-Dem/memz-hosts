@@ -72,3 +72,36 @@ if (window.applicationCache) {
     notify("CACHING COMPLETED", 1);
   };
 }
+
+const HashStorage = () => {
+  const encodeHash = () => {
+    return "#" + btoa(JSON.stringify(hashStore));
+  };
+  let hashStore;
+
+  return {
+    initialize(callback) {
+      const hash =
+        new URL(window.location.href).hash === ""
+          ? "#" + btoa("{}")
+          : new URL(window.location.href).hash;
+
+      try {
+        hashStore = JSON.parse(atob(hash.substring(1)));
+      } catch (e) {
+        throw new Error("Unable to parse hash");
+      }
+
+      callback(hashStore);
+    },
+    getItem(name) {
+      return hashStore[name] || null;
+    },
+    setItem(name, value) {
+      hashStore[name] = value;
+      history.replaceState(undefined, undefined, encodeHash());
+    },
+  };
+};
+
+const hashStorage = HashStorage();

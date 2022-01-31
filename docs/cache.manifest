@@ -4,8 +4,8 @@ index-cached.html
 index.html
 js/core.js
 js/index.js
+js/kernel.js
 js/plugins.js
-js/pro.js
 kernel-cached.html
 kernel-poobs4/int64.js
 kernel-poobs4/kexploit.js
@@ -36,6 +36,6 @@ pl/permanentuart.bin
 pl/ps4debug.bin
 pl/restoredb.bin
 pl/rifrenamer.bin
-#38bb0fa7f0803569339e2b879888b21c
+#6a359de106bb91249e2b3c9ec462471d
 NETWORK:
 *

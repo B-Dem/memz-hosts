@@ -1,3 +1,5 @@
+let selectStores;
+
 let binaryLoaderStatus = false;
 const getBinaryLoaderStatus = () => {
   binaryLoaderStatus = false;
@@ -54,19 +56,6 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
 
 const action__loadUrl = (url) => {
   window.location.href = url;
-};
-
-const action__setTheme = (themeColors) => {
-  const root = document.documentElement;
-
-  root.style.setProperty("--color-black", themeColors[0]);
-  root.style.setProperty("--color-cod-gray", themeColors[1]);
-  root.style.setProperty("--color-primary-rgba", themeColors[2]);
-  root.style.setProperty("--color-primary", themeColors[3]);
-  root.style.setProperty("--color-secondary-rgba", themeColors[4]);
-  root.style.setProperty("--color-secondary", themeColors[5]);
-  root.style.setProperty("--color-white", themeColors[6]);
-  root.style.setProperty("--color-error", themeColors[7]);
 };
 
 const action__setFan = ({ data }) => {
@@ -156,6 +145,57 @@ const action__loadMira = () => {
   $(".iframe").contentWindow.action__loadMira();
 };
 
+const select__themeSpeed = (option, verbose = true) => {
+  $(".tiles2").style.display = option.value === "parallax" ? "block" : "none";
+  hashStorage.setItem("themeSpeed", option.value);
+  if (verbose) {
+    notify("Bookmark to SAVE SETTINGS!!", 1);
+  }
+};
+
+const select__theme = (option, verbose = true) => {
+  const themeValues = JSON.parse(option.value);
+  const root = document.documentElement.style;
+
+  root.setProperty("--color-black", themeValues[0]);
+  root.setProperty("--color-cod-gray", themeValues[1]);
+  root.setProperty("--color-white", themeValues[2]);
+  root.setProperty("--color-error", themeValues[3]);
+  root.setProperty("--color-primary-rgba", themeValues[4]);
+  root.setProperty("--color-primary", themeValues[5]);
+  root.setProperty("--color-secondary-rgba", themeValues[6]);
+  root.setProperty("--color-secondary", themeValues[7]);
+
+  hashStorage.setItem("theme", option.value);
+  if (verbose) {
+    notify("Bookmark to SAVE SETTINGS!!", 1);
+  }
+};
+
+hashStorage.initialize(() => {
+  const theme = hashStorage.getItem("theme");
+  const themeSpeed = hashStorage.getItem("themeSpeed");
+
+  selectStores = {
+    themeSpeed: themeSpeed ? themeSpeed : "original",
+    theme: theme
+      ? theme
+      : '["black","#101010","white","rgb(191,95,95)","0,192,251","#00c0fb","234,182,56","#eab638"]',
+  };
+
+  if (theme) {
+    select__theme(
+      {
+        value: theme,
+      },
+      false
+    );
+  }
+  if (themeSpeed) {
+    select__themeSpeed({ value: themeSpeed }, false);
+  }
+});
+
 const select__color = (option) => {
   // alert(option.innerText + "," + option.value);
 };
@@ -170,13 +210,14 @@ const action__select = () => {};
 const selects = {
   select__color,
   select__usbDelay,
+  select__theme,
+  select__themeSpeed,
 };
 
 $(".xhost__select").addEventListener("change", () => {
-  selects["select__" + action__selectParams.params.onchange](
-    $(".xhost__select").options[$(".xhost__select").selectedIndex]
-  );
-
+  selects["select__" + action__selectParams.params.onchange]({
+    value: $(".xhost__select").options[$(".xhost__select").selectedIndex].value,
+  });
   selectStores[action__selectParams.params.store] =
     $(".xhost__select").options[$(".xhost__select").selectedIndex].value;
 });
@@ -191,7 +232,6 @@ const actions = {
   action__loadUrl,
   action__postBinaryPayload,
   action__setFan,
-  action__setTheme,
   action__showPayloads,
   action__select,
 };

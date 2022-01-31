@@ -1,13 +1,44 @@
 /** variables */
 :root {
+  /*orig*/
+
   --color-black: black;
   --color-cod-gray: #101010;
+  --color-white: white;
+  --color-error: rgb(191, 95, 95);
   --color-primary-rgba: 0, 192, 251;
   --color-primary: #00c0fb;
   --color-secondary-rgba: 234, 182, 56;
   --color-secondary: #eab638;
+
+  /* --color-black: black;
+  --color-cod-gray: #101010;
   --color-white: white;
   --color-error: rgb(191, 95, 95);
+  --color-primary-rgba: 234, 182, 56;
+  --color-primary: #eab638;
+  --color-secondary-rgba: 0, 220, 195;
+  --color-secondary: #00dcc3;
+
+  
+  --color-black: black;
+  --color-cod-gray: #101010;
+  --color-white: white;
+  --color-error: rgb(191, 95, 95);
+  --color-primary-rgba: 0, 176, 108;
+  --color-primary: #00b06c;
+  --color-secondary-rgba: 245, 227, 130;
+  --color-secondary: #f5e382;
+
+  
+  --color-black: black;
+  --color-cod-gray: #101010;
+  --color-white: white;
+  --color-error: rgb(255, 200, 60);
+  --color-primary-rgba: 209, 87, 25;
+  --color-primary: #d15719;
+  --color-secondary-rgba: 0, 151, 123;
+  --color-secondary: #00977b; */
 }
 
 * {
@@ -46,9 +77,9 @@ select {
 /* buttons */
 .xhost__button {
   appearance: none;
-  background-color: rgba(16, 16, 16, 0.7);
-  border-radius: 12px;
-  border: 3px solid rgba(var(--color-primary-rgba), 0.2);
+  background-color: rgba(16, 16, 16, 0.9);
+  border-radius: 32px;
+  border: 5px solid rgba(var(--color-primary-rgba), 0.2);
   color: rgba(var(--color-primary-rgba), 0.6);
   cursor: pointer;
   flex-grow: 1;
@@ -70,25 +101,25 @@ select {
 
 [disabled] .xhost__button {
   background-color: transparent;
-  border: 3px solid var(--color-primary);
+  border: 5px solid var(--color-primary);
   pointer-events: none;
 }
 
 .xhost__button[active] {
-  border: 3px solid var(--color-primary);
+  border: 5px solid var(--color-secondary);
   color: var(--color-black);
   font-weight: 800;
   background-color: rgba(var(--color-primary-rgba), 0.7);
 }
 
 .xhost__button__secondary {
-  border: 1px dashed rgba(var(--color-secondary-rgba), 0.3);
+  border: 5px solid rgba(var(--color-secondary-rgba), 0.3);
   color: rgba(var(--color-secondary-rgba), 0.7);
 }
 
 .xhost__button__secondary[active] {
   background-color: rgba(var(--color-secondary-rgba), 0.7);
-  border: 1px solid rgba(var(--color-secondary-rgba), 0.3);
+  border: 5px solid rgba(var(--color-secondary-rgba), 0.3);
   color: var(--color-black);
 }
 
@@ -106,7 +137,7 @@ select {
 .xhost__selectable-items {
   display: flex;
   width: calc(100% - 280px);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .xhost__selectable-items .xhost__button:last-of-type {
@@ -213,7 +244,7 @@ section .xhost__button__menu {
   font-size: 32px;
   font-weight: 200;
   position: fixed;
-  top: 32px;
+  top: 160px;
   width: auto;
   max-width: 512px;
   height: auto;
@@ -297,7 +328,6 @@ section .xhost__button__menu {
 }
 
 .tiles {
-  opacity: 0.3;
   display: flex;
   flex-direction: column;
 
@@ -318,6 +348,34 @@ section .xhost__button__menu {
 .tiles__line:nth-child(3) {
   -webkit-animation-duration: 44s;
 }
+
+.tiles2 {
+  top: 56%;
+  display: none;
+  /* box-shadow: 10px 5px 5px black; */
+}
+.tiles2 .tiles__line {
+  -webkit-animation: runner 23s linear infinite;
+  display: flex;
+  transform: translateX(25%);
+}
+.tiles2 .tiles__line:nth-child(2) {
+  -webkit-animation-duration: 8s;
+}
+.tiles2 .tiles__line:nth-child(3) {
+  -webkit-animation-duration: 12s;
+}
+.tiles2 .tiles__line-img {
+  --tile-margin: 5vw;
+  height: 20vh;
+  width: 20vh;
+  opacity: 0.8;
+}
+.tiles2 .tiles__line-img--large {
+  height: 6vh;
+  width: 100vh;
+  opacity: 0.5;
+}
 @keyframes runner {
   to {
     -webkit-transform: translateX(-25%);
@@ -332,11 +390,13 @@ section .xhost__button__menu {
   height: 30vh;
   margin: var(--tile-margin);
   width: 30vh;
-  background-color: #00c0fb;
+  background-color: var(--color-primary);
+  opacity: 0.3;
 }
 .tiles__line-img--large {
   border-radius: 20vh;
   width: 100vh;
+  opacity: 0.3;
 }
 
 .xhost__select {
