@@ -4,8 +4,8 @@ CACHE MANIFEST
 /index.html
 /js/core.js
 /js/index.js
+/js/kernel.js
 /js/plugins.js
-/js/pro.js
 /kernel-cached.html
 /kernel-poobs4/int64.js
 /kernel-poobs4/kexploit.js
@@ -36,6 +36,6 @@ CACHE MANIFEST
 /pl/ps4debug.bin
 /pl/restoredb.bin
 /pl/rifrenamer.bin
-#38bb0fa7f0803569339e2b879888b21c
+#d86d348f731299d75a21de2b4afb6cda
 NETWORK:
 *

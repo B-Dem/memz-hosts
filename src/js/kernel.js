@@ -1,11 +1,16 @@
 let needsReload = false;
 const allset = () => {
+  alert(
+    `\n\nPlease 🔥 Close & Reload your 🌐 Browser before running another payload`
+  );
   needsReload = true;
 };
 
 const checkNeedsReload = () => {
   if (needsReload) {
-    alert(`\n\nPlease 💣 CLOSE & 🔁 RELOAD your 🌐 Browser`);
+    alert(
+      `\n\nPlease 🔥 Close & Reload your 🌐 Browser before running another payload`
+    );
     return true;
   }
   return false;
@@ -57,7 +62,14 @@ const action__postBinaryPayload = (file, responseTranformer) => {
 };
 
 window.action__postBinaryPayload = action__postBinaryPayload;
+window.action__loadBinaryLoader = action__loadBinaryLoader;
+window.action__loadMira = action__loadMira;
+window.action__loadMiraJailbreak = action__loadMiraJailbreak;
 window.checkNeedsReload = checkNeedsReload;
+
+function Binset() {
+  alert("\n\n🏴‍☠️ Payload Loaded.\n📡 Send payloads to port 9020");
+}
 
 function LoaderPL() {
   if (out_jb == "AllPL") {

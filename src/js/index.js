@@ -27,21 +27,29 @@ const xhostMouseUp = (e) => {
       mainMenu[mainMenuKeys[mainMenuActiveIndex]].items[mainSubmenuActiveIndex];
   }
 
-  const action = targetEl.action;
+  const { action, actionParams } = targetEl;
 
-  if (action && action !== "contextMenu" && action !== "select") {
+  if (
+    [
+      "action__loadBinaryLoader",
+      "action__loadLinux",
+      "action__loadMira",
+      "action__loadMiraJailbreak",
+      "action__postBinaryPayload",
+      "action__setFan",
+    ].includes(action)
+  ) {
     if ($(".iframe").contentWindow.checkNeedsReload()) {
       return;
     }
-
-    const { action, actionParams } = targetEl;
-    actions["action__" + action].call(null, actionParams);
-
-    if (!targetEl.silent) {
-      notify(`Running Payload: ${targetEl.name}`);
-    }
-    return;
   }
+
+  actions["action__" + action].call(null, actionParams);
+
+  if (!targetEl.silent) {
+    notify(`Running Payload: ${targetEl.name}`);
+  }
+  return;
 };
 
 document.addEventListener("mouseup", xhostMouseUp);
