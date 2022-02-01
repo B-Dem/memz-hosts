@@ -78,7 +78,7 @@ select {
 .xhost__button {
   appearance: none;
   background-color: rgba(16, 16, 16, 0.9);
-  border-radius: 32px;
+  border-radius: 24px;
   border: 5px solid rgba(var(--color-primary-rgba), 0.2);
   color: rgba(var(--color-primary-rgba), 0.6);
   cursor: pointer;
@@ -244,7 +244,7 @@ section .xhost__button__menu {
   font-size: 32px;
   font-weight: 200;
   position: fixed;
-  top: 160px;
+  top: 8px;
   width: auto;
   max-width: 512px;
   height: auto;

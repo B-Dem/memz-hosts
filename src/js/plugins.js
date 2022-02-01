@@ -117,7 +117,7 @@ const action__contextMenu = (items) => {
       class: "xhost__button__secondary",
       silent: true,
     },
-    ...items,
+    ...items.filter((e) => !e.hideOffline),
   ];
   showContextMenu = true;
   generateContextMenu(contextMenuItems);

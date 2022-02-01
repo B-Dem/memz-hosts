@@ -86,17 +86,15 @@ document.addEventListener("keydown", (e) => {
         contextMenuItems[contextMenuActiveMenuIndex].actionParams;
       action__selectParams.params = tmpParams;
 
-      $(".xhost__select").innerHTML = Object.keys(tmpParams.options).reduce(
-        (acc, key) => {
-          const selected =
-            selectStores[tmpParams.store] === tmpParams.options[key];
-          acc += `<option value='${tmpParams.options[key]}'${
-            selected ? " selected" : ""
-          }>${key}</option>`;
-          return acc;
-        },
-        ""
-      );
+      $(".xhost__select").innerHTML = Object.keys(tmpParams.options)
+      .reduce((acc, key) => {
+        const selected =
+          selectStores[tmpParams.store] === tmpParams.options[key];
+        acc += `<option value='${tmpParams.options[key]}'${
+          selected ? " selected" : ""
+        }>${key}</option>`;
+        return acc;
+      }, "");
 
       $(".xhost__select").style.display = "block";
     } else {

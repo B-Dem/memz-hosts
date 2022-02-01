@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "gif": "cd scripts && node gif.js && yasm core.asm -o core.js",
     "build": "npm run cache && npm run minimify",
     "minimify": "cd scripts && node minimify.js",
     "cache": "cd src && appcache-manifest \"**/**/*.{html,css,js,bin,json}\" \"!pl/mods/**/*.{html,css,js,bin,json}\" -o ../src/cache.manifest --network-star"
@@ -21,6 +22,7 @@
   "devDependencies": {
     "clean-css": "^5.2.4",
     "html-minifier-terser": "^7.0.0-alpha.1",
+    "javascript-obfuscator": "^3.1.0",
     "jsonminify": "^0.4.2"
   },
   "dependencies": {

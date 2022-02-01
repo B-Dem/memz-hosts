@@ -7,11 +7,11 @@ js/index.js
 js/kernel.js
 js/plugins.js
 kernel-cached.html
-kernel-poobs4/int64.js
-kernel-poobs4/kexploit.js
-kernel-poobs4/rop.js
-kernel-poobs4/webkit.js
 kernel.html
+kernel/int64.js
+kernel/kexploit.js
+kernel/rop.js
+kernel/webkit.js
 menu.json
 pl/MiraLoader.bin
 pl/Orbis-Toolbox-900.bin
@@ -36,6 +36,6 @@ pl/permanentuart.bin
 pl/ps4debug.bin
 pl/restoredb.bin
 pl/rifrenamer.bin
-#d86d348f731299d75a21de2b4afb6cda
+#7adf3286730755513f7b92c1683fcd96
 NETWORK:
 *
