@@ -128,7 +128,7 @@
           {
             "name": "Enable Update",
             "action": "postBinaryPayload",
-            "actionParams": "enbaleupdates.bin",
+            "actionParams": "enableupdates.bin",
             "desc": "Enables System Updates"
           },
           {
