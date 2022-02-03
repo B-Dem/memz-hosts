@@ -27,7 +27,7 @@ CACHE MANIFEST
 /pl/exitidu.bin
 /pl/fan.bin
 /pl/ftp.bin
-/pl/goldhen2b2.bin
+/pl/goldhen_2.1_900.bin
 /pl/historyblocker.bin
 /pl/kerneldumper.bin
 /pl/linux-loader.bin
@@ -36,6 +36,6 @@ CACHE MANIFEST
 /pl/ps4debug.bin
 /pl/restoredb.bin
 /pl/rifrenamer.bin
-#c1c9fc3379bc4521c04a6c571ba78fdc
+#37aa3b815fbcf3383242dca7bf49caaa
 NETWORK:
 *

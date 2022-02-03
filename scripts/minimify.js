@@ -292,6 +292,7 @@ async function compressRecursiveSync(src, dest) {
             "      /* xhosh-inject-point */",
             "SHOW_OFFLINE_ITEMS=false;"
           )
+          .replace('src="kernel.html"', 'src="kernel-cached.html"')
           .replace(/[\n\r]/g, ""),
         getOptions(defaultOptions)
       )
@@ -358,4 +359,5 @@ async function compressRecursiveSync(src, dest) {
   }
 }
 
+fs.rmdirSync("../docs", { recursive: true });
 compressRecursiveSync("../src", "../docs");

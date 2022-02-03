@@ -7,7 +7,8 @@
     "gif": "cd scripts && node gif.js && yasm core.asm -o core.js",
     "build": "npm run cache && npm run minimify",
     "minimify": "cd scripts && node minimify.js",
-    "cache": "cd src && appcache-manifest \"**/**/*.{html,css,js,bin,json}\" \"!pl/mods/**/*.{html,css,js,bin,json}\" -o ../src/cache.manifest --network-star"
+    "cache": "cd src && appcache-manifest \"**/**/*.{html,css,js,bin,json}\" \"!pl/\\$*.bin\" -o ../src/cache.manifest --network-star",
+    "flat": "npm run minimify && cd scripts && node flat.js && html-inline -i ../docs/index-cached.html -o ../flat/index-cached.html ./ && html-inline -i ../docs/kernel-cached.html -o ../flat/kernel-cached.html ./"
   },
   "repository": {
     "type": "git",
