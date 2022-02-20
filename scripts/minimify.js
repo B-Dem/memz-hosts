@@ -288,10 +288,6 @@ async function compressRecursiveSync(src, dest) {
         fs
           .readFileSync(src.replace("-cached", ""), "utf8")
           .replace("<html>", '<html manifest="cache.manifest">')
-          .replace(
-            "      /* xhosh-inject-point */",
-            "SHOW_OFFLINE_ITEMS=false;"
-          )
           .replace('src="kernel.html"', 'src="kernel-cached.html"')
           .replace(/[\n\r]/g, ""),
         getOptions(defaultOptions)
