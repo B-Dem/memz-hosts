@@ -25,7 +25,7 @@ const $ = (selector, root = document) => {
   return nodes;
 };
 
-const notify = (text, level = 0, delay = 0) => {
+const notify = (text, level = 0, delay = 0, duration = 5000) => {
   const notifyLevel = { 0: "", 1: " -error" };
   setTimeout(() => {
     $(
@@ -35,8 +35,10 @@ const notify = (text, level = 0, delay = 0) => {
 
   setTimeout(() => {
     $("?.xhost__notification-container").innerHTML = "";
-  }, delay + 5000);
+  }, delay + duration);
 };
+
+window.notify = notify;
 
 if (window.applicationCache) {
   window.applicationCache.addEventListener(

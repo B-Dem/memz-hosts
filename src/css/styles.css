@@ -70,6 +70,10 @@ body {
   padding: 0;
 }
 
+.secondary {
+  color: var(--color-secondary);
+}
+
 select {
   pointer-events: all;
 }

@@ -1,8 +1,46 @@
+const queryParams = new URLSearchParams(window.location.search);
+
+window.XHOST_USB_DELAY = window.parent.XHOST_USB_DELAY || "10000";
+window.XHOST_USB_MODE = window.parent.XHOST_USB_MODE || "manual";
+
+/* HELPERS */
+const ᗢalert = window.alert;
+window.alert = (str) => {
+  return new Promise((resolve) => {
+    ᗢalert(str);
+    resolve();
+  });
+};
+
+const sleep = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+const waitForUSB = () => {
+  return window.XHOST_USB_MODE === "auto"
+    ? sleep(parseInt(window.XHOST_USB_DELAY, 10))
+    : alert(
+        `
+
+    
+    💡 Insert the USB stick.💾       
+    ⏰ Wait until the 🎫 notificacion Popsup ⚠
+    ❌ Close this window.`
+      );
+};
+
 let needsReload = false;
 const allset = () => {
-  alert(
-    `\n\nPlease 🔥 Close & Reload your 🌐 Browser before running another payload`
-  );
+  if (window.XHOST_USB_MODE === "auto") {
+    window.parent.notify(
+      "Please Close & Reload your Browser<br/>before running another payload"
+    );
+  } else {
+    alert(
+      `\n\nPlease 🔥 Close & Reload your 🌐 Browser before running another payload`
+    );
+  }
   needsReload = true;
 };
 
@@ -65,6 +103,10 @@ window.action__postBinaryPayload = action__postBinaryPayload;
 window.action__loadBinaryLoader = action__loadBinaryLoader;
 window.action__loadMira = action__loadMira;
 window.action__loadMiraJailbreak = action__loadMiraJailbreak;
+let kernelContext = {};
+window.setKernelContext = (ctx) => {
+  kernelContext = ctx;
+};
 window.checkNeedsReload = checkNeedsReload;
 
 function Binset() {
@@ -194,3 +236,17 @@ function LoaderPL() {
     Binset();
   }
 }
+
+const enableUSB = () => {
+  if (window.XHOST_USB_MODE === "manual") {
+    return;
+  }
+  window.parent.notify("Loading exfathax..<br/>Please Wait");
+  return fetch("/xhost/usb/on");
+};
+const disableUSB = () => {
+  if (window.XHOST_USB_MODE === "manual") {
+    return;
+  }
+  return fetch("/xhost/usb/off");
+};

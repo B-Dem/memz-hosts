@@ -6,8 +6,11 @@ let mainSubmenuActiveIndex = 0;
 let mainMenuRows;
 
 let showContextMenu = false;
+let contextMenuCurrent;
 let contextMenuItems;
+let contextMenuItemsMeta = {};
 let contextMenuActiveMenuIndex = 0;
+let xhostAppData = {};
 
 const getContextSelectables = () => {
   return Array.from($(".xhost__button__payload", $("?.xhost__context"))).filter(
@@ -29,14 +32,18 @@ const xhostMouseUp = (e) => {
 
   const { action, actionParams } = targetEl;
 
+  if (!action) {
+    return;
+  }
+
   if (
     [
-      "action__loadBinaryLoader",
-      "action__loadLinux",
-      "action__loadMira",
-      "action__loadMiraJailbreak",
-      "action__postBinaryPayload",
-      "action__setFan",
+      "loadBinaryLoader",
+      "loadLinux",
+      "loadMira",
+      "loadMiraJailbreak",
+      "postBinaryPayload",
+      "setFan",
     ].includes(action)
   ) {
     if ($(".iframe").contentWindow.checkNeedsReload()) {
@@ -86,15 +93,17 @@ document.addEventListener("keydown", (e) => {
         contextMenuItems[contextMenuActiveMenuIndex].actionParams;
       action__selectParams.params = tmpParams;
 
-      $(".xhost__select").innerHTML = Object.keys(tmpParams.options)
-      .reduce((acc, key) => {
-        const selected =
-          selectStores[tmpParams.store] === tmpParams.options[key];
-        acc += `<option value='${tmpParams.options[key]}'${
-          selected ? " selected" : ""
-        }>${key}</option>`;
-        return acc;
-      }, "");
+      $(".xhost__select").innerHTML = Object.keys(tmpParams.options).reduce(
+        (acc, key) => {
+          const selected =
+            selectStores[tmpParams.store] === tmpParams.options[key];
+          acc += `<option value='${tmpParams.options[key]}'${
+            selected ? " selected" : ""
+          }>${key}</option>`;
+          return acc;
+        },
+        ""
+      );
 
       $(".xhost__select").style.display = "block";
     } else {
@@ -146,7 +155,9 @@ const generateMainMenu = () => {
       .map((item) => {
         return `<button class="xhost__button xhost__button__payload ${
           mainMenu[key].smallButtons ? "xhost__button__small" : ""
-        }"><div>${item.name}</div><div class="xhost-payload__desc">${
+        }"><div class="xhost__item-name">${
+          item.name
+        }</div><div class="xhost-payload__desc">${
           item.desc ? item.desc : ""
         }</div></button>`;
       })
@@ -160,7 +171,26 @@ const generateMainMenu = () => {
 
   container.innerHTML = container.innerHTML + outputHTML;
 
-  mainMenuRows = $(`?[row]`);
+  const rows = $(`?[row]`);
+  mainMenuRows = rows.length ? rows : [rows];
+};
+
+// const computeContext = (path, obj) => {
+//   return path.split(".").reduce((o, i) => o[i], obj);
+// };
+
+const computeContext = (str, context) => {
+  return str.match(/({{(.+?)}})/gi).reduce(
+    (acc, match) =>
+      acc.replaceAll(
+        match,
+        match
+          .replace(/[{}]./g, "")
+          .split(".")
+          .reduce((o, i) => o[i], context)
+      ),
+    str
+  );
 };
 
 const generateContextMenu = (items) => {
@@ -171,8 +201,12 @@ const generateContextMenu = (items) => {
         return `<li><button class="xhost__button xhost__button__payload ${
           item.class ? item.class : ""
         }">
-  <div>${item.name}</div>
-  <div class="xhost-payload__desc">${item.desc || ""}</div>
+  <div>${
+    item.name$ ? computeContext(item.name$, xhostAppData) : item.name
+  }</div>
+  <div class="xhost-payload__desc">${
+    item.desc$ ? computeContext(item.desc$, xhostAppData) : item.desc || ""
+  }</div>
 </button></li>`;
       })
       .join("") +
@@ -181,17 +215,20 @@ const generateContextMenu = (items) => {
 };
 
 const renderContextMenu = () => {
-  getContextSelectables().forEach((el) => {
+  const selectables = getContextSelectables();
+  selectables.forEach((el) => {
     el.removeAttribute("active");
   });
-  getContextSelectables()[contextMenuActiveMenuIndex].setAttribute(
-    "active",
-    ""
-  );
-  getContextSelectables()[contextMenuActiveMenuIndex].scrollIntoView();
+  selectables[contextMenuActiveMenuIndex].setAttribute("active", "");
+  selectables[contextMenuActiveMenuIndex].scrollIntoView();
+  contextMenuCurrent = selectables[contextMenuActiveMenuIndex];
 };
 
 const renderMainMenu = () => {
+  console.log(mainMenuRows);
+  if (!mainMenuRows) {
+    return;
+  }
   mainMenuRows.forEach((e) => {
     e.setAttribute("disabled", "");
     e.classList.remove("active");
@@ -224,18 +261,19 @@ const removeHiddenMenus = (menu) => {
     acc[key] = menu[key];
 
     if (acc[key].items) {
-      acc[key].items = menu[key].items.filter((item) => {
-        if (SHOW_OFFLINE_ITEMS) {
-          return true;
-        }
-        return item.hideOffline !== true;
+      acc[key].items = menu[key].items.filter((e) => {
+        return e.guard
+          ? guards[`guard__${e.guard}`](
+              e.guardParams ? e.guardParams : undefined
+            )
+          : true;
       });
     }
     return acc;
   }, {});
 };
 
-const xhostMain = () => {
+let xhostMain = () => {
   return fetch("menu.json")
     .then((r) => r.json())
     .then((r) => removeHiddenMenus(r))

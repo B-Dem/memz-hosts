@@ -1,6 +1,9 @@
+let selects;
 let selectStores;
-
+let guards = {};
 let binaryLoaderStatus = false;
+window.XHOST_USB_MODE = "manual";
+
 const getBinaryLoaderStatus = () => {
   binaryLoaderStatus = false;
   return fetch("http://127.0.0.1:9090/status", {
@@ -47,6 +50,10 @@ const injectBinaryPayloadPOST = (PLfile, responseTranformer) => {
       notify("Cannot Load Payload Because binloader Server Is Busy", 1);
     })
     .catch((error) => {
+      $(".iframe").contentWindow.setKernelContext({
+        usbMode: "manual", // auto
+        usbDelay: 10000,
+      });
       $(".iframe").contentWindow.action__postBinaryPayload(
         PLfile,
         responseTranformer
@@ -118,7 +125,9 @@ const action__contextMenu = (items) => {
       silent: true,
     },
     ...items.filter((e) => {
-      return SHOW_OFFLINE_ITEMS || e.hideOffline !== true;
+      return e.guard
+        ? guards[`guard__${e.guard}`](e.guardParams ? e.guardParams : undefined)
+        : true;
     }),
   ];
   showContextMenu = true;
@@ -179,6 +188,7 @@ hashStorage.initialize(() => {
   const themeSpeed = hashStorage.getItem("themeSpeed");
 
   selectStores = {
+    ...selectStores,
     themeSpeed: themeSpeed ? themeSpeed : "original",
     theme: theme
       ? theme
@@ -198,20 +208,11 @@ hashStorage.initialize(() => {
   }
 });
 
-const select__color = (option) => {
-  // alert(option.innerText + "," + option.value);
-};
-
-const select__usbDelay = (option) => {
-  // alert(option.innerText + " USB DELAY ," + option.value);
-};
-
 const action__selectParams = {};
 const action__select = () => {};
 
-const selects = {
-  select__color,
-  select__usbDelay,
+selects = {
+  ...selects,
   select__theme,
   select__themeSpeed,
 };
@@ -224,7 +225,7 @@ $(".xhost__select").addEventListener("change", () => {
     $(".xhost__select").options[$(".xhost__select").selectedIndex].value;
 });
 
-const actions = {
+let actions = {
   action__contextMenu,
   action__contextMenuClose,
   action__loadBinaryLoader,
@@ -236,4 +237,17 @@ const actions = {
   action__setFan,
   action__showPayloads,
   action__select,
+};
+
+const guard__isOnline = () => {
+  return navigator.onLine;
+};
+
+let guard__isXHOSTPRO = () => {
+  return false;
+};
+guards = {
+  ...guards,
+  guard__isOnline,
+  guard__isXHOSTPRO,
 };

@@ -2,14 +2,14 @@
   "main": {
     "items": [
       {
-        "name": "GoldHEN 2.1",
+        "name": "GoldHEN 2.1.2",
         "action": "postBinaryPayload",
-        "actionParams": "goldhen_2.1_900.bin",
+        "actionParams": "ghen@latest.900.bin",
         "desc": "GoldHEN fw9.00"
       },
       {
-        "name": "Mira",
-        "desc": "Mira Tools",
+        "name": "Jailbreak",
+        "desc": "Other Jailbreak Tools",
         "action": "contextMenu",
         "silent": true,
         "actionParams": [
@@ -30,14 +30,14 @@
         "name": "Binary Loader",
         "action": "loadBinaryLoader",
         "desc": "Send payloads to BinaryLoader at port 9020",
-        "hideOffline": true
+        "guard": "isOnline"
       },
       {
         "name": "FTP",
         "action": "postBinaryPayload",
         "actionParams": "ftp.bin",
         "desc": "A full access FTP server for the PS4",
-        "hideOffline": true
+        "guard": "isOnline"
       },
       {
         "action": "postBinaryPayload",
@@ -89,8 +89,26 @@
           {
             "name": "Dump Game",
             "action": "postBinaryPayload",
-            "actionParams": "app-dumper.bin",
-            "desc": "Dump Games to a USB drive to be able to create fpkg files"
+            "actionParams": "dump-game.bin",
+            "desc": "Dump Games to a USB drive. Leeful"
+          },
+          {
+            "name": "Dump Game Update",
+            "action": "postBinaryPayload",
+            "actionParams": "dump-game-update.bin",
+            "desc": "Dump Game Update to a USB drive. Leeful"
+          },
+          {
+            "name": "Dump Game & Update (Merged)",
+            "action": "postBinaryPayload",
+            "actionParams": "dump-mgu.bin",
+            "desc": "Dump Game & Update (Merged) to a USB drive. Leeful"
+          },
+          {
+            "name": "Dump Game & Update (separated)",
+            "action": "postBinaryPayload",
+            "actionParams": "dump-sgu.bin",
+            "desc": "Dump Game & Update (separated) to a USB drive. Leeful"
           },
           {
             "action": "postBinaryPayload",
@@ -262,7 +280,7 @@
         "desc": "GTA Mods",
         "action": "contextMenu",
         "silent": true,
-        "hideOffline": true,
+        "guard": "isOnline",
         "actionParams": [
           {
             "name": "GTAV A100",
@@ -337,7 +355,7 @@
         "desc": "Red dead redemption 2 Mods",
         "action": "contextMenu",
         "silent": true,
-        "hideOffline": true,
+        "guard": "isOnline",
         "actionParams": [
           {
             "name": "RDR2 V1.00",
@@ -375,12 +393,12 @@
         "silent": true,
         "actionParams": [
           {
-            "name": "Enable Offline Cache",
-            "desc": "Cache this Host for offline access",
+            "name": "XHOST-PRO Setup",
+            "desc": "WiFi / Firmware / Settings",
             "action": "loadUrl",
-            "actionParams": "index-cached.html",
+            "actionParams": "/xhost/setup",
             "silent": true,
-            "hideOffline": true
+            "guard": "isXHOSTPRO"
           },
           {
             "name": "Theme",
@@ -413,7 +431,8 @@
         ]
       },
       {
-        "name": "Big<br>Thanks",
+        "name": "About: xhost-pro v1.2.0 xps3riments",
+        "desc": "Click for credits",
         "action": "contextMenu",
         "silent": true,
         "actionParams": [
@@ -436,8 +455,12 @@
         ]
       },
       {
-        "name": "About",
-        "desc": "xhost-pro v1.2.0<br>by xps3riments"
+        "name": "Offline Version",
+        "desc": "Cache this Host for offline access",
+        "action": "loadUrl",
+        "actionParams": "index-cached.html",
+        "silent": true,
+        "guard": "isOnline"
       }
     ]
   }
