@@ -431,7 +431,7 @@
         ]
       },
       {
-        "name": "About: xhost-pro v1.3.0 xps3riments",
+        "name": "About: xhost v1.3.0 xps3riments",
         "desc": "Click for credits",
         "action": "contextMenu",
         "silent": true,
