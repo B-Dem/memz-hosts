@@ -2,10 +2,16 @@
   "main": {
     "items": [
       {
-        "name": "GoldHEN 2.1.2",
+        "name": "GoldHEN 2.2",
         "action": "postBinaryPayload",
         "actionParams": "ghen@latest.900.bin",
         "desc": "GoldHEN fw9.00"
+      },
+      {
+        "name": "GoldHEN Auto",
+        "action": "loadUrl",
+        "actionParams": "/index.html?autoload-hen=true",
+        "desc": "GoldHEN 2.2 Auto Load"
       },
       {
         "name": "Jailbreak",
@@ -431,7 +437,7 @@
         ]
       },
       {
-        "name": "About: xhost v1.3.0 xps3riments",
+        "name": "About: xhost v1.4.0 xps3riments",
         "desc": "Click for credits",
         "action": "contextMenu",
         "silent": true,
