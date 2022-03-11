@@ -107,3 +107,12 @@ const HashStorage = () => {
 };
 
 const hashStorage = HashStorage();
+
+const queryParams = new URLSearchParams(window.location.search);
+
+window.kernelReady = () => {
+  if (queryParams.has("autoload-hen")) {
+    notify("Autoloading GoldHEN please wait...");
+    actions["action__postBinaryPayload"]("ghen@latest.900.bin");
+  }
+};

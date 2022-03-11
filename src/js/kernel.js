@@ -250,3 +250,5 @@ const disableUSB = () => {
   }
   return fetch("/xhost/usb/off");
 };
+
+window.parent.kernelReady();
