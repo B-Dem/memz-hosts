@@ -284,6 +284,10 @@ let xhostMain = () => {
       action__showPayloads();
       generateMainMenu();
       renderMainMenu();
+      if (window.autoloadGoldHen) {
+        notify("Autoloading GoldHEN please wait...");
+        actions["action__postBinaryPayload"]("ghen@latest.900.bin");
+      }
       return menuJson;
     });
 };
