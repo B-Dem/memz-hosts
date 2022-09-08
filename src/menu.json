@@ -2,7 +2,7 @@
   "main": {
     "items": [
       {
-        "name": "GoldHEN 2.3b2",
+        "name": "GoldHEN 2.2.4",
         "action": "postBinaryPayload",
         "actionParams": "ghen@latest.900.bin",
         "desc": "GoldHEN fw9.00"
@@ -11,7 +11,7 @@
         "name": "GoldHEN Auto",
         "action": "loadUrl",
         "actionParams": "/index.html?autoload-hen=true",
-        "desc": "GoldHEN 2.3b2 Auto Load"
+        "desc": "GoldHEN 2.2.4 Auto Load"
       },
       {
         "name": "Jailbreak",
