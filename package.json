@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "gif": "cd scripts && node gif.js && yasm core.asm -o core.js",
-    "build": "npm run cache && npm run minimify",
+    "build": "npm run cache && npm run minimify && npm run prepare-public",
     "minimify": "cd scripts && node minimify.js",
     "cache": "cd src && appcache-manifest \"**/**/*.{html,css,js,bin,json}\" \"!pl/\\$*.bin\" -o ../src/cache.manifest --network-star",
-    "flat": "npm run minimify && cd scripts && node flat.js && html-inline -i ../docs/index-cached.html -o ../flat/index-cached.html ./ && html-inline -i ../docs/kernel-cached.html -o ../flat/kernel-cached.html ./"
+    "flat": "npm run minimify && cd scripts && node flat.js && html-inline -i ../docs/index-cached.html -o ../flat/index-cached.html ./ && html-inline -i ../docs/kernel-cached.html -o ../flat/kernel-cached.html ./",
+    "prepare-public": "mkdir -p public && cp -r src/* public/ && cp -r docs/* public/"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "clean-css": "^5.2.4",
     "html-minifier-terser": "^7.0.0-alpha.1",
     "javascript-obfuscator": "^3.1.0",
-    "jsonminify": "^0.4.2"
+    "jsonminify": "^0.4.2",
+    "appcache-manifest": "^0.10.0"
   },
   "dependencies": {
     "google-closure-compiler": "^20220104.0.0"
